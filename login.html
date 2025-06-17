@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login - Space Booking</title>
+<style>
+body {font-family:'Arial,sans-serif'; margin:0; padding:20px; background: #edf2f7;}
+.container {width: 300px; margin: 100px auto; background: #ffffff; padding: 20px; box-shadow: 0 0 10px #0003; border-radius: 8px;}
+.container h1 {text-align: center; margin-bottom: 20px;color: #334155;}
+input {width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px;}
+button {width: 100%; padding: 10px; background: #3b82f6; color: #ffffff; border: none; border-radius: 6px; cursor: pointer;font-size: 1em;}
+button:hover {background: #2563eb;}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+<script>
+function login(){
+  // Here you'd normally send an AJAX request to PHP for authentication
+  let username = document.getElementById('username').value;
+  let password = document.getElementById('password').value;
+
+  // Mock-up
+  if(username==='admin' && password==='admin123'){
+    localStorage.setItem('role', 'admin'); // Mock role
+    window.location='dashboard.html';
+  } else if(username==='lecturer' && password==='lecturer123') {
+    localStorage.setItem('role', 'lecturer'); // Mock role
+    window.location='booking.html';
+  } else if(username==='manager' && password==='manager123') {
+    localStorage.setItem('role', 'space_manager'); // Mock role
+    window.location='approvals.html';
+  } else {
+    alert('Invalid credentials');
+  }
+}
+</script>
+</body>
+</html>

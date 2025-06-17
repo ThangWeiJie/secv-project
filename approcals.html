@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Booking Approvals</title>
+<style>
+body {font-family:'Arial,sans-serif'; margin:20px; background: #edf2f7;color: #334155 }
+table {width:100%;border-collapse: collapse;margin-bottom:20px }
+th,td {border:1px solid #cbd5e1;padding:10px }
+button {padding: 5px 10px;color:#ffffff;border:none;border-radius:6px;margin-right:5px }
+button.approve {background: #10b981 }
+button.reject {background: #ef4444 }
+</style>
+</head>
+<body>
+<h1>Booking Approvals</h1>
+<table id="bookingTable">
+  <tr>
+    <th>ID</th>
+    <th>Room</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Purpose</th>
+    <th>Actions</th>
+  </tr>
+</table>
+
+<script>
+// Mock-up data. Ideally you'd fetch this from the backend with AJAX.
+const bookingList = [
+  {id:1,room:'Lab A',date:'2025-06-20',time:'09:00-11:00',purpose:'Math Class'}
+];
+
+// Display
+function showBookings(){
+  let table = document.getElementById('bookingTable');
+  bookingList.forEach(b=>{
+    let row = table.insertRow();
+    row.innerHTML = `
+      <td>${b.id}</td>
+      <td>${b.room}</td>
+      <td>${b.date}</td>
+      <td>${b.time}</td>
+      <td>${b.purpose}</td>
+      <td>
+        <button class="approve" onclick="approveBooking(${b.id})">Approve</button>
+        <button class="reject" onclick="rejectBooking(${b.id})">Reject</button>
+      </td>`;
+  });
+}
+
+function approveBooking(id){
+  console.log('Approved booking!', id);
+  alert('Booking approved');
+}
+
+function rejectBooking(id){
+  console.log('Rejected booking!', id);
+  alert('Booking rejected');
+}
+
+window.onload = showBookings;
+</script>
+
+</body>
+</html>
