@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Available Rooms - Space Booking</title>
+  <style>
+    body { font-family: Arial; background: #f1f5f9; padding: 20px; }
+    h1 { text-align: center; color: #1e293b; }
+    .room-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .room-card { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .room-card h2 { margin: 0; font-size: 20px; color: #1d4ed8; }
+    .room-card p { margin: 5px 0; color: #334155; }
+    .equipment { margin-top: 10px; font-size: 14px; }
+    .book-btn {
+      margin-top: 10px; padding: 8px 15px; background: #10b981; color: #fff; 
+      border: none; border-radius: 5px; cursor: pointer;
+    }
+    .book-btn:hover { background: #059669; }
+  </style>
+</head>
+<body>
+
+<h1>Available Rooms</h1>
+<div class="room-list" id="roomList"></div>
+
+<script>
+fetch('get_rooms.php')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('roomList');
+
+    data.forEach(room => {
+      const div = document.createElement('div');
+      div.className = 'room-card';
+
+      div.innerHTML = `
+        <h2>${room.room_name}</h2>
+        <p><strong>Type:</strong> ${room.type}</p>
+        <p><strong>Size:</strong> ${room.size}</p>
+        <p><strong>Condition:</strong> ${room.room_condition || 'Good'}</p>
+        <div class="equipment">
+          <strong>Equipment:</strong><br>
+          ${
+            room.equipments.length > 0 ?
+            room.equipments.map(eq => `- ${eq.equipment_name} (x${eq.quantity}) [${eq.condition == 1 ? 'Working' : 'Faulty'}]`).join('<br>')
+            : 'None'
+          }
+        </div>
+        <button class="book-btn" onclick="bookRoom(${room.room_id}, '${room.room_name}')">Book This Room</button>
+      `;
+
+      container.appendChild(div);
+    });
+  });
+
+function bookRoom(roomId, roomName) {
+  // Redirect to booking page with room info
+  window.location.href = `booking.html?room_id=${roomId}&room_name=${encodeURIComponent(roomName)}`;
+}
+</script>
+
+</body>
+</html>
