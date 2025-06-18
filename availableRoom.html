@@ -155,6 +155,7 @@
       card.className = 'room-card';
       card.innerHTML = `
         <h3>${room.name}</h3>
+        <p><strong>Room ID:</strong> ${room.id}</p>
         <p><strong>Type:</strong> ${room.type}</p>
         <p><strong>Size:</strong> ${room.size} pax</p>
         <button class="btn details" onclick="showDetails(${room.id})">View Details</button>
