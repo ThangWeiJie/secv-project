@@ -4,39 +4,149 @@
 <meta charset="UTF-8">
 <title>Book a Room</title>
 <style>
-body {font-family:'Arial,sans-serif'; margin:20px; background: #edf2f7;color: #334155 }
-input, select, button {display: block; margin-bottom: 15px;padding: 10px;width: 100%;height: 40px;color: #334155; }
-button { background: #3b82f6; color: #ffffff; border: none; border-radius: 6px; }
-button:hover { background: #2563eb }
-.container {max-width:400px;padding:20px;background:#ffffff;border-radius: 8px;box-shadow: 0 0 10px #0003;margin: 100px auto }
-</style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .booking-container {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1d4ed8;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: #2563eb;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-color: #1d4ed8;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .message.success {
+      color: green;
+    }
+
+    .message.error {
+      color: red;
+    }
+  </style>
 </head>
 <body>
-<h1>Book a Room</h1>
-<div class="container">
-  <input id="roomId" placeholder="Room ID">
-  <input id="date" type="date">
-  <input id="startTime" type="time">
-  <input id="endTime" type="time">
-  <input id="purpose" placeholder="Purpose">
-  <button onclick="submitBooking()">Submit Booking</button>
-</div>
+  <div class="booking-container">
+    <h1>Book a Room</h1>
+    <form id="bookingForm" onsubmit="submitBooking(event)">
+      <div class="form-group">
+        <label for="roomId">Room ID</label>
+        <input type="number" id="roomId" name="roomId" required />
+      </div>
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required />
+      </div>
+      <div class="form-group">
+        <label for="startTime">Start Time</label>
+        <input type="time" id="startTime" name="startTime" required />
+      </div>
+      <div class="form-group">
+        <label for="endTime">End Time</label>
+        <input type="time" id="endTime" name="endTime" required />
+      </div>
+      <div class="form-group">
+        <label for="purpose">Purpose</label>
+        <textarea id="purpose" name="purpose" rows="3" required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Booking</button>
+      <div class="message" id="responseMessage"></div>
+    </form>
+  </div>
+  
 
 <script>
-function submitBooking(){
-  // Here you'd normally send this to your PHP backend to insert into Booking table
-  let booking = {
-    roomId: document.getElementById('roomId').value,
-    date: document.getElementById('date').value,
-    startTime: document.getElementById('startTime').value,
-    endTime: document.getElementById('endTime').value,
-    purpose: document.getElementById('purpose').value,
-    lecturerId: 1 // Mock-up
-  };
-  
-  console.log('Booking Submitted!', booking);
-  alert('Booking Submitted!');
-}
+  function submitBooking(event) {
+    event.preventDefault(); 
+
+    const form = document.getElementById('bookingForm');
+    const formData = new FormData(form);
+    const responseMessage = document.getElementById('responseMessage');
+
+    fetch('submit_booking.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.text())
+    .then(data => {
+      responseMessage.textContent = data;
+      responseMessage.className = 'message success';
+      form.reset();
+    })
+    .catch(err => {
+      console.error(err);
+      responseMessage.textContent = 'Failed to submit booking. Please try again.';
+      responseMessage.className = 'message error';
+    });
+  }
 </script>
+
 </body>
 </html>
