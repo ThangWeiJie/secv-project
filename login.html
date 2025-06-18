@@ -22,23 +22,7 @@ button:hover {background: #2563eb;}
 
 <script>
 function login(){
-  // Here you'd normally send an AJAX request to PHP for authentication
-  let username = document.getElementById('username').value;
-  let password = document.getElementById('password').value;
-
-  // Mock-up
-  if(username==='admin' && password==='admin123'){
-    localStorage.setItem('role', 'admin'); // Mock role
-    window.location='dashboard.html';
-  } else if(username==='lecturer' && password==='lecturer123') {
-    localStorage.setItem('role', 'lecturer'); // Mock role
-    window.location='booking.html';
-  } else if(username==='manager' && password==='manager123') {
-    localStorage.setItem('role', 'space_manager'); // Mock role
-    window.location='approvals.html';
-  } else {
-    alert('Invalid credentials');
-  }
+  
 }
 </script>
 </body>
