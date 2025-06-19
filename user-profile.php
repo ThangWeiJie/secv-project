@@ -1,4 +1,10 @@
 <?php
+    session_start();
+
+    if(!isset($_COOKIE["user"])) {
+        header("Location: login.php");
+    }
+
 $user = [
     'user_id' => 101,
     'username' => 'johndoe',
@@ -73,12 +79,13 @@ $bookings = [
 <div class="profile">
     <h2>User Profile</h2>
     <div class="info">
-        <p><strong>User ID:</strong> <?php echo $user['user_id']; ?></p>
-        <p><strong>Username:</strong> <?php echo $user['username']; ?></p>
-        <p><strong>Full Name:</strong> <?php echo $user['full_name']; ?></p>
-        <p><strong>Email:</strong> <?php echo $user['email']; ?></p>
-        <p><strong>Phone:</strong> <?php echo $user['phone']; ?></p>
-        <p><strong>Role:</strong> <?php echo $user['role']; ?></p>
+        <?php print_r($_SESSION); ?>
+        <p><strong>User ID:</strong> <?php echo $_SESSION["USERID"]; ?></p>
+        <p><strong>Username:</strong> <?php echo $_SESSION["USER"]; ?></p>
+        <p><strong>Full Name:</strong> <?php echo $_SESSION["FULLNAME"]; ?></p>
+        <p><strong>Email:</strong> <?php echo $_SESSION["EMAIL"]; ?></p>
+        <p><strong>Phone:</strong> <?php echo $_SESSION["PHONE"]; ?></p>
+        <p><strong>Role:</strong> <?php echo $_SESSION["ROLE"]; ?></p>
     </div>
 
     <h3>Booking History</h3>

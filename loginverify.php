@@ -2,7 +2,7 @@
     session_start();
     require_once("config.php");
 
-    print_r($_POST);
+    // print_r($_POST);
 
     $enteredUsername = $_POST["username"];
     $enteredPassword = $_POST["password"];
@@ -19,6 +19,9 @@
     $fetchedUserID = $userrow["user_id"];
     $fetchedUserName = $userrow["username"];
     $fetchedPassword = $userrow["pass"];
+    $fetchedFullName = $userrow["full_name"];
+    $fetchedEmail = $userrow["email"];
+    $fetchedPhone = $userrow["phone"];
     $fetchedUserType = $userrow["role"];
 
     $count = mysqli_num_rows($result);
@@ -28,9 +31,16 @@
 
         $_SESSION["USER"] = $fetchedUserName;
         $_SESSION["USERID"] = $fetchedUserID;
+        $_SESSION["FULLNAME"] = $fetchedFullName;
+        $_SESSION["EMAIL"] = $fetchedEmail;
+        $_SESSION["PHONE"] = $fetchedPhone;
         $_SESSION["ROLE"] = $fetchedUserType;
 
-        echo "Welcome, " . $_SESSION["USER"];
+        setcookie("user", $fetchedUserName, time() + 60*60*24);
+
+        // echo "Welcome, " . $_SESSION["USER"];
+        header("Location: user-profile.php");
+        print_r($_SESSION);
     } else {
         $_SESSION["LOGGED"] = FALSE;
         echo "There seems to be a problem. Please login again.";
