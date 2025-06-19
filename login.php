@@ -57,7 +57,14 @@
       font-size: 14px;
       margin-top: -10px;
       margin-bottom: 10px;
-      display: none;
+      display:
+        <?php
+          if(isset($_GET["err"])) {
+            echo "block";
+          } else {
+            echo "none";
+          }
+        ?>;
     }
 
     .login-btn {
