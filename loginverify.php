@@ -39,7 +39,7 @@
         setcookie("user", $fetchedUserName, time() + 60*60*24);
 
         // echo "Welcome, " . $_SESSION["USER"];
-        header("Location: user-profile.php");
+        header("Location: approvals.php");
         print_r($_SESSION);
     } else {
         $_SESSION["LOGGED"] = FALSE;

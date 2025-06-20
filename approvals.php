@@ -1,3 +1,13 @@
+<?php 
+  session_start();
+
+  if($_SESSION["ROLE"] != "admin") {
+    echo "<p>You are not allowed to view this page!</p>";
+    echo "<a href='user-profile.php'>Click here to go back to the homepage.</a>";
+    exit();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
