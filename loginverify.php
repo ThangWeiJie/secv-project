@@ -39,10 +39,10 @@
         setcookie("user", $fetchedUserName, time() + 60*60*24);
 
         // echo "Welcome, " . $_SESSION["USER"];
-        header("Location: approvals.php");
+        header("Location: approvalscopy.php");
         print_r($_SESSION);
     } else {
         $_SESSION["LOGGED"] = FALSE;
-        echo "There seems to be a problem. Please login again.";
+        // echo "There seems to be a problem. Please login again.";
     }
 ?>

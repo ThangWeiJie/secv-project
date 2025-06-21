@@ -108,11 +108,14 @@
             <td>%s - %s</td>
             <td>%s</td>
             <td>
-              <button class="btn approve-btn" onclick="updateStatus(102, "approved")">Approve</button>
-              <button class="btn reject-btn" onclick="updateStatus(102, "rejected")">Reject</button>
+              <form method="post" action="approvalscopy.php">
+                <input type="submit" class="btn approve-btn" name="btn-approve" value="Approve">
+                <input type="submit" class="btn reject-btn" name="btn-reject" value="Reject">
+								<input type="hidden" name="book_id" value="%u">
+              </form>
             </td>
           </tr>
-        ', $row['booking_id'], $roomname["room_name"], $fullname["full_name"], $row["start_date"], $row["start_time"], $row["end_time"], $row["purpose"]);
+        ', $row['booking_id'], $roomname["room_name"], $fullname["full_name"], $row["start_date"], $row["start_time"], $row["end_time"], $row["purpose"], $row["booking_id"]);
       }
     }
   ?>
@@ -120,3 +123,24 @@
 
 </body>
 </html>
+
+<?php 
+	$reviewerID = $_SESSION['USERID'];
+  if(isset($_POST["btn-approve"])) {
+		$idToApprove = $_POST['book_id'];
+		$approveQuery = "UPDATE booking SET booking_status='approved', reviewed_by='$reviewerID' WHERE booking_id='$idToApprove'";
+		$approveResult = mysqli_query($conn, $approveQuery);
+		
+		if(mysqli_affected_rows($conn) > 0) {
+			header("Location: approvalscopy.php");
+		}
+	} else if(isset($_POST["btn-reject"])) {
+			$idToReject = $_POST['book_id'];
+			$rejectQuery = "UPDATE booking SET booking_status='rejected', reviewed_by='$reviewerID' WHERE booking_id = '$idToReject'";
+			$rejectResult = mysqli_query($conn, $rejectQuery);
+
+			if(mysqli_affected_rows($conn) > 0) {
+				header("Location: approvalscopy.php");
+		}
+	}
+?>
