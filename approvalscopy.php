@@ -84,6 +84,15 @@
 </head>
 <body>
 
+<div style="text-align: right;">
+	<a href="approvalscopy.php?logout=1">Logout</a>
+	<?php 
+		if(isset($_GET["logout"])) {
+			session_destroy();
+			header("Location: login.php");
+		}
+	?>
+</div>
 <h1>Pending Booking Approvals</h1>
 
 <table id="bookingTable">
@@ -118,21 +127,15 @@
         ', $row['booking_id'], $roomname["room_name"], $fullname["full_name"], $row["start_date"], $row["start_time"], $row["end_time"], $row["purpose"], $row["booking_id"]);
       }
     }
-  ?>
-</table>
 
-</body>
-</html>
-
-<?php 
-	$reviewerID = $_SESSION['USERID'];
-  if(isset($_POST["btn-approve"])) {
-		$idToApprove = $_POST['book_id'];
-		$approveQuery = "UPDATE booking SET booking_status='approved', reviewed_by='$reviewerID' WHERE booking_id='$idToApprove'";
-		$approveResult = mysqli_query($conn, $approveQuery);
+		$reviewerID = $_SESSION['USERID'];
+  	if(isset($_POST["btn-approve"])) {
+			$idToApprove = $_POST['book_id'];
+			$approveQuery = "UPDATE booking SET booking_status='approved', reviewed_by='$reviewerID' WHERE booking_id='$idToApprove'";
+			$approveResult = mysqli_query($conn, $approveQuery);
 		
-		if(mysqli_affected_rows($conn) > 0) {
-			header("Location: approvalscopy.php");
+			if(mysqli_affected_rows($conn) > 0) {
+				header("Location: approvalscopy.php");
 		}
 	} else if(isset($_POST["btn-reject"])) {
 			$idToReject = $_POST['book_id'];
@@ -143,4 +146,8 @@
 				header("Location: approvalscopy.php");
 		}
 	}
-?>
+  ?>
+</table>
+
+</body>
+</html>
