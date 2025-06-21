@@ -133,12 +133,9 @@
   <button class="btn close-btn" onclick="closePopup()">Close</button>
 </div>
 
-<?php 
-  echo "Hello World";
-?>
-
 <script>
   const rooms = <?php echo json_encode($jsonArray); ?>;
+  console.log(rooms);
 
   function loadRooms() {
     const container = document.getElementById('roomList');
@@ -147,19 +144,19 @@
       card.className = 'room-card';
       card.innerHTML = `
         <h3>${room.room_name}</h3>
-        <p><strong>Room ID:</strong> ${room.id}</p>
+        <p><strong>Room ID:</strong> ${room.room_id}</p>
         <p><strong>Type:</strong> ${room.type}</p>
         <p><strong>Size:</strong> ${room.size} pax</p>
-        <button class="btn details" onclick="showDetails(${room.id})">View Details</button>
-        <a href="booking.html?roomId=${room.id}" class="btn book">Book</a>
+        <button class="btn details" onclick="showDetails(${room.room_id})">View Details</button>
+        <a href="booking.html?roomId=${room.room_id}" class="btn book">Book</a>
       `;
       container.appendChild(card);
     });
   }
 
   function showDetails(id) {
-    const room = rooms.find(r => r.id === id);
-    document.getElementById('popupTitle').textContent = room.name + " Details";
+    const room = rooms.find(r => r.room_id == id);
+    document.getElementById('popupTitle').textContent = room.room_name + " Details";
     document.getElementById('popupInfo').textContent = room.description;
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('roomPopup').style.display = 'block';
