@@ -1,5 +1,5 @@
 <?php
-include '../db_connect.php';
+require_once('../config.php');
 $id = $_GET['id'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("UPDATE user SET full_name=?, email=?, role=?, phone=? WHERE user_id=?");

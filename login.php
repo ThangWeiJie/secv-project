@@ -87,7 +87,7 @@
 
 <div class="login-container">
   <h2>Login</h2>
-  <form method="POST" action="loginverify.php" id="loginForm"> <!-- login.php -->
+  <form method="POST" action="loginverify.php" id="loginForm"> 
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" name="username" required>

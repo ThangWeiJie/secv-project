@@ -1,6 +1,6 @@
 <?php 
   session_start();
-  require_once("config.php");
+  require_once("../config.php");
 
   if($_SESSION["ROLE"] != "admin") {
     echo "<p>You are not allowed to view this page!</p>";

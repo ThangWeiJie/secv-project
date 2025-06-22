@@ -1,21 +1,23 @@
 <?php
-require_once('auth.php');
 require_once('config.php');
 
 $sql = "INSERT INTO user (username, password, full_name, email, role, phone)
 VALUES('admin1', 'pass123', 'Alice Admin', 'alice@uni.edu', 'admin', '0111234567');";
 $sql .= "INSERT INTO user (username, password, full_name, email, role, phone)
-VALUES ('admin2', 'pass456', 'Bob Admin', 'bob@uni.edu', 'admin', '0123456789');";
+VALUES('admin2', 'pass456', 'Bob Admin', 'bob@uni.edu', 'admin', '0123456789');";
 $sql .= "INSERT INTO user (username, password, full_name, email, role, phone)
-('lect1', 'abc123', 'Dr. Lim', 'lim@uni.edu', 'lecturer', '0101111222');";
+VALUES('lect1', 'abc123', 'Dr. Lim', 'lim@uni.edu', 'lecturer', '0101111222');";
 $sql .= "INSERT INTO user (username, password, full_name, email, role, phone)
-('lect2', 'abc456', 'Ms. Wong', 'wong@uni.edu', 'lecturer', '0103333444');";
+VALUES('lect2', 'abc456', 'Ms. Wong', 'wong@uni.edu', 'lecturer', '0103333444');";
 $sql .= "INSERT INTO user (username, password, full_name, email, role, phone)
-('manager1', 'mgr123', 'Mr. Tan', 'tan@uni.edu', 'space_manager', '0198888999');";
+VALUES('manager1', 'mgr123', 'Mr. Tan', 'tan@uni.edu', 'space_manager', '0198888999');";
 if(mysqli_multi_query($conn, $sql)) {
     echo "User records inserted successfully.";
 } else {
     echo "Error inserting user record: " . mysqli_error($conn);
+}
+while (mysqli_more_results($conn)) {
+    mysqli_next_result($conn);
 }
 
 $sql = "INSERT INTO room (room_name, type, size)
@@ -33,6 +35,9 @@ if(mysqli_multi_query($conn, $sql)) {
 } else {
     echo "Error inserting room record: " . mysqli_error($conn);
 }
+while (mysqli_more_results($conn)) {
+    mysqli_next_result($conn);
+}
 
 $sql = "INSERT INTO room_condition (room_id, description)
 VALUES(1, 'Projector not working');";
@@ -49,37 +54,46 @@ if(mysqli_multi_query($conn, $sql)) {
 } else {
     echo "Error inserting room condition record: " . mysqli_error($conn);
 }
+while (mysqli_more_results($conn)) {
+    mysqli_next_result($conn);
+}
 
-$sql = "INSERT INTO room_equipment (room_id, equipment_name, quantity, `condition`)
+$sql = "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
 VALUES(1, 'PC', 30, 1);";
-$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, `condition`)
+$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
 VALUES(1, 'Projector', 1, 0);";
-$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, `condition`)
+$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
 VALUES(2, 'Microphone', 2, 1);";
-$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, `condition`)
+$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
 VALUES(3, 'Monitor', 25, 1);";
-$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, `condition`)
+$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
 VALUES(4, 'Speakers', 4, 1);";
 if(mysqli_multi_query($conn, $sql)) {
     echo "Room equipment records inserted successfully.";
 } else {
     echo "Error inserting room equipment record: " . mysqli_error($conn);
 }
+while (mysqli_more_results($conn)) {
+    mysqli_next_result($conn);
+}
 
-$sql = "INSERT INTO booking (room_id, user_id, start_time, end_time, status)
+$sql = "INSERT INTO booking (room_id, user_id, date, start_time, end_time, purpose, status)
 VALUES(1, 3, '2025-06-20', '10:00:00', '12:00:00', 'Java Lab', 'pending');";
-$sql .= "INSERT INTO booking (room_id, user_id, start_time, end_time, status)
+$sql .= "INSERT INTO booking (room_id, user_id, date, start_time, end_time, purpose, status)
 VALUES(2, 4, '2025-06-21', '09:00:00', '11:00:00', 'Guest Lecture', 'approved');";
-$sql .= "INSERT INTO booking (room_id, user_id, start_time, end_time, status)
+$sql .= "INSERT INTO booking (room_id, user_id, date, start_time, end_time, purpose, status)
 VALUES(3, 3, '2025-06-22', '14:00:00', '16:00:00', 'Tutorial Session', 'rejected');";
-$sql .= "INSERT INTO booking (room_id, user_id, start_time, end_time, status)
+$sql .= "INSERT INTO booking (room_id, user_id, date, start_time, end_time, purpose, status)
 VALUES(4, 4, '2025-06-23', '08:00:00', '10:00:00', 'Seminar Practice', 'pending');";
-$sql .= "INSERT INTO booking (room_id, user_id, start_time, end_time, status)
+$sql .= "INSERT INTO booking (room_id, user_id, date, start_time, end_time, purpose, status)
 VALUES(5, 3, '2025-06-24', '11:00:00', '13:00:00', 'Project Discussion', 'approved');";
 if(mysqli_multi_query($conn, $sql)) {
     echo "Booking records inserted successfully.";
 } else {
     echo "Error inserting booking record: " . mysqli_error($conn);
+}
+while (mysqli_more_results($conn)) {
+    mysqli_next_result($conn);
 }
 
 $sql ="INSERT INTO activity_log (user_id, action)

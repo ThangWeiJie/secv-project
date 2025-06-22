@@ -1,5 +1,4 @@
 <?php
-require_once('auth.php');
 require_once('config.php');
 
 $sql = "CREATE TABLE IF NOT EXISTS user (
@@ -48,7 +47,7 @@ $sql = "CREATE TABLE IF NOT EXISTS room_equipment (
     room_id INT,
     equipment_name VARCHAR(50),
     quantity INT,
-    `condition` BOOLEAN,
+    equipment_condition BOOLEAN,
     FOREIGN KEY (room_id) REFERENCES room(room_id) ON DELETE CASCADE
 )";
 if(mysqli_query($conn, $sql)) {

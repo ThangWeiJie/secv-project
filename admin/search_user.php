@@ -1,5 +1,5 @@
 <?php
-include '../db_connect.php';
+require_once('../config.php');
 if (isset($_GET['keyword'])) {
     $keyword = $conn->real_escape_string($_GET['keyword']);
     $result = $conn->query("SELECT * FROM user WHERE full_name LIKE '%$keyword%'");

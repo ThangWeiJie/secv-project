@@ -4,4 +4,5 @@
     if(!$_SESSION["LOGGED"]) {
         header("Location: login.php");
     }
+
 ?>

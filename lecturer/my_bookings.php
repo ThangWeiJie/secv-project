@@ -1,6 +1,6 @@
 <?php 
-    require_once('auth.php');
-    require_once('config.php');
+    require_once('../auth.php');
+    require_once('../config.php');
 
     $lectureID = $_SESSION["USERID"];
     $query = "SELECT * FROM booking WHERE booking_status='pending' AND lecturer_id = $lectureID";

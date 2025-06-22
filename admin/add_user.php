@@ -1,5 +1,6 @@
 <?php
-include '../db_connect.php';
+require_once('../config.php');
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("INSERT INTO user (username, password, full_name, email, role, phone) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssss", $_POST['username'], $_POST['password'], $_POST['full_name'], $_POST['email'], $_POST['role'], $_POST['phone']);
