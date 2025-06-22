@@ -87,5 +87,23 @@ if(mysqli_query($conn, $sql)) {
     echo "Error creating table: " . mysqli_error($conn);
 }
 
+$sql = "CREATE TABLE feedback (
+    feedback_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    satisfaction ENUM('very_satisfied', 'satisfied', 'neutral', 'dissatisfied', 'very_dissatisfied'),
+    resolved BOOLEAN,
+    professionalism ENUM('excellent', 'good', 'average', 'poor'),
+    improvement TEXT,
+    comments TEXT,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+)";
+
+if(mysqli_query($conn, $sql)) {
+    echo "Table feedback created successfully.";
+} else {
+    echo "Error creating table: " . mysqli_error($conn);
+}
+
 mysqli_close($conn);
 ?>

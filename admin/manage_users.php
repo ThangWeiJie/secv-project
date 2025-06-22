@@ -1,10 +1,12 @@
 <?php
 require_once('../config.php');
 session_start();
-if ($_SESSION['role'] !== 'admin') {
-    header("Location: ../index.php");
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+    header("Location: ../login.php");
     exit();
 }
+
 
 $result = $conn->query("SELECT * FROM user");
 echo "<h2>User Management</h2><a href='add_user.php'>Add User</a><br><br>";
@@ -21,4 +23,5 @@ while ($row = $result->fetch_assoc()) {
     </tr>";
 }
 echo "</table>";
+echo "<br><a href='add_user.php'>Add New User</a>";
 ?>

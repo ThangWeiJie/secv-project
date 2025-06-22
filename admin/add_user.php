@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: manage_users.php");
     exit();
 }
+echo '<br><a href="manage_users.php">Back to User Management</a>';
 ?>
 <form method="POST">
     Username: <input name="username"><br>
