@@ -18,7 +18,7 @@
     <?php if($_SESSION["ROLE"] == "admin"): ?>
         <h1>You are an admin</h1>
         <a href="user-profile.php">Profile</a> <br><br>
-        <a href="Homepage.php?LOGOUT=1">Logout</a>
+        <a href="homepage.php?LOGOUT=1">Logout</a>
     <?php endif; ?>
     <?php if($_SESSION["ROLE"] == "lecturer"): ?>
         <a href="user-profile.php">Profile</a> <br><br>

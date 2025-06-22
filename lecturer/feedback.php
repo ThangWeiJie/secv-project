@@ -19,8 +19,6 @@ if (isset($_POST['submit'])) {
 
     if (empty($satisfaction)) $errors[] = "Please select satisfaction level.";
     if (empty($professionalism)) $errors[] = "Please rate professionalism.";
-    if (empty($improvement)) $errors[] = "Please enter improvement suggestions.";
-    if (empty($comments)) $errors[] = "Please enter your comments.";
 
     echo "<h2>";
     echo empty($errors) ? "✅ Thanks for your feedback!" : "❌ Please correct the following errors:";
@@ -54,7 +52,7 @@ echo "<h3>📋 All Feedback Submissions</h3>";
 $sql = "SELECT f.*, u.username FROM feedback f 
         JOIN user u ON f.user_id = u.user_id 
         ORDER BY f.submitted_at DESC";
-        
+
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     echo "<table border='1' cellpadding='6'>

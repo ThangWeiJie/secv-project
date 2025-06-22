@@ -1,23 +1,30 @@
 <?php
-    session_start();
+session_start();
 
-    if(!isset($_COOKIE["user"])) {
-        header("Location: login.php");
-    }
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
-$user = [
-    'user_id' => 101,
-    'username' => 'johndoe',
-    'full_name' => 'John Doe',
-    'email' => 'john@example.com',
-    'phone' => '012-3456789',
-    'role' => 'User'
-];
+// Get user data from database
+$user_id = $_SESSION['user_id'];
+$userQuery = $conn->prepare("SELECT * FROM user WHERE user_id = ?");
+$userQuery->bind_param("i", $user_id);
+$userQuery->execute();
+$userResult = $userQuery->get_result();
+$user = $userResult->fetch_assoc();
 
-$bookings = [
-    ['id' => '001', 'room' => 'Room A', 'date' => '2024-05-10', 'time' => '14:00'],
-    ['id' => '002', 'room' => 'Room B', 'date' => '2025-07-10', 'time' => '10:00']
-];
+// Get booking history
+$bookingQuery = $conn->prepare("
+    SELECT b.booking_id, r.room_name AS room, b.date, b.start_time 
+    FROM booking b 
+    JOIN room r ON b.room_id = r.room_id 
+    WHERE b.user_id = ? 
+    ORDER BY b.date DESC, b.start_time DESC
+");
+$bookingQuery->bind_param("i", $user_id);
+$bookingQuery->execute();
+$bookings = $bookingQuery->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -79,13 +86,12 @@ $bookings = [
 <div class="profile">
     <h2>User Profile</h2>
     <div class="info">
-        <?php print_r($_SESSION); ?>
-        <p><strong>User ID:</strong> <?php echo $_SESSION["USERID"]; ?></p>
-        <p><strong>Username:</strong> <?php echo $_SESSION["USER"]; ?></p>
-        <p><strong>Full Name:</strong> <?php echo $_SESSION["FULLNAME"]; ?></p>
-        <p><strong>Email:</strong> <?php echo $_SESSION["EMAIL"]; ?></p>
-        <p><strong>Phone:</strong> <?php echo $_SESSION["PHONE"]; ?></p>
-        <p><strong>Role:</strong> <?php echo $_SESSION["ROLE"]; ?></p>
+        <p><strong>User ID:</strong> <?= htmlspecialchars($user['user_id']) ?></p>
+        <p><strong>Username:</strong> <?= htmlspecialchars($user['username']) ?></p>
+        <p><strong>Full Name:</strong> <?= htmlspecialchars($user['full_name']) ?></p>
+        <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
+        <p><strong>Phone:</strong> <?= htmlspecialchars($user['phone']) ?></p>
+        <p><strong>Role:</strong> <?= htmlspecialchars($user['role']) ?></p>
     </div>
 
     <h3>Booking History</h3>

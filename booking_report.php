@@ -1,5 +1,5 @@
 <?php
-require_once('../config.php');
+require_once('config.php');
 $result = $conn->query("SELECT b.*, u.full_name, r.room_name 
                         FROM booking b 
                         JOIN user u ON b.user_id = u.user_id 
