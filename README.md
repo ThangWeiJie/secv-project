@@ -1,14 +1,9 @@
 
-
 <h2>In progress ⏳</h2>
 <ul>
 	<li>Homepage.php</li>
 	<li>user-profile.php</li>
 	<li>update_profile.php</li> 
-	<li>Feedback.html</li>
-	<li>Detailed feedback system</li>
-	<li>Admin functions to add/delete/search users</li>
-	<li>Manager functions to add/delete rooms</li>
 </ul>
 
 
@@ -23,6 +18,10 @@
 	<li>modifyBooking.php</li>
 	<li>my_bookings.php</li>
 	<li>approvals.php</li>
+	<li>Feedback.html</li>
+	<li>Detailed feedback system</li>
+	<li>Admin functions to add/delete/search users</li>
+	<li>Manager functions to add/delete rooms</li>
 </ul>
 
 
