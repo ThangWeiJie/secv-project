@@ -17,20 +17,21 @@
 <body>
     <?php if($_SESSION["ROLE"] == "admin"): ?>
         <h1>You are an admin</h1>
-        <a href="user-profile.php">Profile</a>
+        <a href="user-profile.php">Profile</a> <br><br>
         <a href="Homepage.php?LOGOUT=1">Logout</a>
     <?php endif; ?>
     <?php if($_SESSION["ROLE"] == "lecturer"): ?>
-        <a href="user-profile.php">Profile</a>
+        <a href="user-profile.php">Profile</a> <br><br>
+        <a href="my_bookings.php">Own bookings</a> <br><br>
         <a href="feedback.html">Feedback Form</a> <br><br>
         <a href="booking.html">Booking Application</a> <br> <br>
-        <a href="availableRoom.php">Browse Available Rooms</a> <br>
+        <a href="availableRoom.php">Browse Available Rooms</a> <br><br>
         <a href="Homepage.php?LOGOUT=1">Logout</a>  
     <?php endif; ?>
     <?php if($_SESSION["ROLE"] == "space_manager"): ?>
         <h1>You are a space manager</h1>
-        <a href="user-profile.php">Profile</a>
-        <a href="approvalscopy.php">Approvals</a>
+        <a href="user-profile.php">Profile</a> <br><br>
+        <a href="approvalscopy.php">Approvals</a> <br><br>
         <a href="Homepage.php?LOGOUT=1">Logout</a>
     <?php endif; ?>
 </body>
