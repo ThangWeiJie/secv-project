@@ -1,4 +1,5 @@
 <?php 
+  require_once('auth.php');
   require_once('config.php');
   $roomQuery = "SELECT * FROM room WHERE availability='Available'";
   $roomResult = mysqli_query($conn, $roomQuery);
@@ -119,6 +120,7 @@
 </head>
 <body>
 
+<a href="Homepage.php">Back to homepage</a>
 <h1>Available Rooms</h1>
 <div>
   <form method="post" action="availableRoom.php">
