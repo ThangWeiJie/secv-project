@@ -132,15 +132,10 @@
     $searchQuery = "SELECT * FROM room WHERE room_name LIKE '$roomToSearch%'";
     $searchResult = mysqli_query($conn, $searchQuery);
 
-    if(mysqli_num_rows($searchResult) == 0) {
-      echo "No rooms found";
-      exit();
-    } else {
-      printf("<h2>%u result(s) found.</h2>", mysqli_num_rows($searchResult));
-      $jsonArray = [];
-      while($rows = mysqli_fetch_assoc($searchResult)) {
-        $jsonArray[] = $rows;
-      }
+    printf("<h2 style='display:inline;'>%u result(s) found.</h2> &nbsp; &nbsp; <a href='availableRoom.php'>Back</a>", mysqli_num_rows($searchResult));
+    $jsonArray = [];
+    while($rows = mysqli_fetch_assoc($searchResult)) {
+      $jsonArray[] = $rows;
     }
   }
 ?>
