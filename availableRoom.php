@@ -120,6 +120,30 @@
 <body>
 
 <h1>Available Rooms</h1>
+<div>
+  <form method="post" action="availableRoom.php">
+    <input style="display:block; margin: 0 auto; size: 4;" type="text" id="roomsearch" name="roomsearch" placeholder="Search by name..">
+  </form>
+</div>
+
+<?php
+  if(isset($_POST["roomsearch"])) {
+    $roomToSearch = $_POST["roomsearch"];
+    $searchQuery = "SELECT * FROM room WHERE room_name LIKE '$roomToSearch%'";
+    $searchResult = mysqli_query($conn, $searchQuery);
+
+    if(mysqli_num_rows($searchResult) == 0) {
+      echo "No rooms found";
+      exit();
+    } else {
+      printf("<h2>%u result(s) found.</h2>", mysqli_num_rows($searchResult));
+      $jsonArray = [];
+      while($rows = mysqli_fetch_assoc($searchResult)) {
+        $jsonArray[] = $rows;
+      }
+    }
+  }
+?>
 
 <div class="room-list" id="roomList">
   <!-- Rooms will be loaded here by JS -->
