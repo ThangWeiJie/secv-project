@@ -6,6 +6,7 @@
 	<li>user-profile.php</li>
 	<li>update_profile.php</li> 
 	<li>Feedback.html</li>
+	<li>Detailed feedback system</li>
 	<li>Admin functions to add/delete/search users</li>
 </ul>
 
@@ -29,5 +30,4 @@
 	<li>Manager functions to add/delete rooms</li>
 	<li>View booking reports/requests</li>
 	<li>System activity logs</li>
-	<li>Detailed feedback system</li>
 </ul>
