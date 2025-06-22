@@ -8,6 +8,7 @@
 	<li>Feedback.html</li>
 	<li>Detailed feedback system</li>
 	<li>Admin functions to add/delete/search users</li>
+	<li>Manager functions to add/delete rooms</li>
 </ul>
 
 
@@ -27,7 +28,6 @@
 
 <h1>Not started ❌</h1>
 <ul>
-	<li>Manager functions to add/delete rooms</li>
 	<li>View booking reports/requests</li>
 	<li>System activity logs</li>
 </ul>
