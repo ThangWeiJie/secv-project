@@ -157,6 +157,24 @@
         color: #475569;
         font-size: 15px;
     }
+
+    .nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-bottom: 10px;
+  }
+  .nav-links a {
+    margin: 0;
+  }
+  .admin-label,
+.space-manager-label {
+  color:rgb(255, 255, 255); 
+  font-size: 1.5em;
+  margin-bottom: 24px; 
+  text-align: center;
+}
+
   </style>
 </head>
 <body>
@@ -167,26 +185,32 @@
     
     <nav>
     <?php if($_SESSION["ROLE"] == "admin"): ?>
-        <h1>You are an admin</h1>
-        <a href="user-profile.php">Profile</a> <br><br>
-        <a href="admin/manage_users.php">Manage users</a> <br><br>
-        <a href="admin/activity_log.php">View activity log</a> <br><br>
+        <h1 class="admin-label">You are an admin</h1>
+        <div class="nav-links">
+        <a href="user-profile.php">Profile</a> 
+        <a href="admin/manage_users.php">Manage users</a> 
+        <a href="admin/activity_log.php">View activity log</a> 
         <a href="Homepage.php?LOGOUT=1">Logout</a>
+        </div>
     <?php endif; ?>
     <?php if($_SESSION["ROLE"] == "lecturer"): ?>
-        <a href="user-profile.php">Profile</a> <br><br>
-        <a href="lecturer/my_bookings.php">Own bookings</a> <br><br>
-        <a href="lecturer/feedback.html">Feedback Form</a> <br><br>
-        <a href="lecturer/booking.php">Booking Application</a> <br> <br>
-        <a href="availableRoom.php">Browse Available Rooms</a> <br><br>
+      <div class="nav-links">
+        <a href="user-profile.php">Profile</a> 
+        <a href="lecturer/my_bookings.php">Own bookings</a> 
+        <a href="lecturer/feedback.html">Feedback Form</a> 
+        <a href="lecturer/booking.php">Booking Application</a> 
+        <a href="availableRoom.php">Browse Available Rooms</a>
         <a href="Homepage.php?LOGOUT=1">Logout</a>  
+        </div>
     <?php endif; ?>
     <?php if($_SESSION["ROLE"] == "space_manager"): ?>
-        <h1>You are a space manager</h1>
-        <a href="user-profile.php">Profile</a> <br><br>
-        <a href="manager/approvalscopy.php">Approvals</a> <br><br>
-        <a href="manager/manage_room.php">Room management</a> <br><br>
+        <h1 class="space-manager-label">You are a space manager</h1>
+        <div class="nav-links">
+        <a href="user-profile.php">Profile</a> 
+        <a href="manager/approvalscopy.php">Approvals</a> 
+        <a href="manager/manage_room.php">Room management</a>
         <a href="Homepage.php?LOGOUT=1">Logout</a>
+        </div>
     <?php endif; ?>
     </nav>
 
