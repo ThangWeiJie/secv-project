@@ -18,7 +18,7 @@
 
     $fetchedUserID = $userrow["user_id"];
     $fetchedUserName = $userrow["username"];
-    $fetchedPassword = md5($userrow["password"]);
+    $fetchedPassword = md5($userrow["pass"]);
     $fetchedFullName = $userrow["full_name"];
     $fetchedEmail = $userrow["email"];
     $fetchedPhone = $userrow["phone"];
