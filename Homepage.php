@@ -18,6 +18,8 @@
     <?php if($_SESSION["ROLE"] == "admin"): ?>
         <h1>You are an admin</h1>
         <a href="user-profile.php">Profile</a> <br><br>
+        <a href="admin/manage_users.php">Manage users</a> <br><br>
+        <a href="admin/activity_log.php">View activity log</a> <br><br>
         <a href="homepage.php?LOGOUT=1">Logout</a>
     <?php endif; ?>
     <?php if($_SESSION["ROLE"] == "lecturer"): ?>

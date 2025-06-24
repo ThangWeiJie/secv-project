@@ -2,13 +2,13 @@
 require_once('../config.php');
 $id = $_GET['id'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $stmt = $conn->prepare("UPDATE user SET full_name=?, email=?, role=?, phone=? WHERE user_id=?");
+    $stmt = $conn->prepare("UPDATE usertable SET full_name=?, email=?, role=?, phone=? WHERE user_id=?");
     $stmt->bind_param("ssssi", $_POST['full_name'], $_POST['email'], $_POST['role'], $_POST['phone'], $id);
     $stmt->execute();
     header("Location: manage_users.php");
     exit();
 }
-$result = $conn->query("SELECT * FROM user WHERE user_id=$id");
+$result = $conn->query("SELECT * FROM usertable WHERE user_id=$id");
 $user = $result->fetch_assoc();
 ?>
 <form method="POST">
