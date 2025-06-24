@@ -207,7 +207,7 @@
         <h1 class="space-manager-label">You are a space manager</h1>
         <div class="nav-links">
         <a href="user-profile.php">Profile</a> 
-        <a href="manager/approvalscopy.php">Approvals</a> 
+        <a href="manager/approvals.php">Approvals</a> 
         <a href="manager/manage_room.php">Room management</a>
         <a href="Homepage.php?LOGOUT=1">Logout</a>
         </div>
