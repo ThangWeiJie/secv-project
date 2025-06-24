@@ -80,19 +80,30 @@
     .reject-btn {
       background-color: #dc2626;
     }
+    .return-home-btn {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            background: #1e3a8a;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+            text-align: center;
+            z-index: 100;
+        }
+        .return-home-btn:hover {
+            background: #2563eb;
+        }
   </style>
 </head>
 <body>
 
-<div style="text-align: right;">
-	<a href="approvalscopy.php?logout=1">Logout</a>
-	<?php 
-		if(isset($_GET["logout"])) {
-			session_destroy();
-			header("Location: login.php");
-		}
-	?>
-</div>
 <h1>Pending Booking Approvals</h1>
 
 <table id="bookingTable">
@@ -148,6 +159,6 @@
 	}
   ?>
 </table>
-
+<a href="../Homepage.php" class="return-home-btn">&#8592; Return Home</a>
 </body>
 </html>
