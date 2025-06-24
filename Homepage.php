@@ -1,7 +1,16 @@
 <?php
-    session_start();
+    require_once('config.php');
+    require('auth.php');
 
     if(isset($_GET['LOGOUT'])) {
+
+        $activityMessage = "User logged out";
+        $fetchedUserID = $_SESSION["USERID"];
+        $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+        $stmt = $conn->prepare($activityQuery);
+        $stmt->bind_param("is", $fetchedUserID, $activityMessage);
+        $stmt->execute();
+
         session_destroy();
         header("Location: login.php");
     }
@@ -26,7 +35,7 @@
         <a href="user-profile.php">Profile</a> <br><br>
         <a href="lecturer/my_bookings.php">Own bookings</a> <br><br>
         <a href="lecturer/feedback.html">Feedback Form</a> <br><br>
-        <a href="lecturer/booking.html">Booking Application</a> <br> <br>
+        <a href="lecturer/booking.php">Booking Application</a> <br> <br>
         <a href="lecturer/availableRoom.php">Browse Available Rooms</a> <br><br>
         <a href="Homepage.php?LOGOUT=1">Logout</a>  
     <?php endif; ?>

@@ -95,7 +95,7 @@
   <div class="booking-container">
     <h1>Book a Room</h1>
     <form id="bookingForm" method="post" action="submit-booking.php"> <!-- submit-booking.php -->
-      <input type="hidden" name="room_id" value="<?php echo htmlspecialchars($roomId); ?>">
+      <!-- <input type="hidden" name="room_id"> -->
       <div class="form-group">
         <label for="room">Room</label>
         <input type="text" id="room" name="room" required>
@@ -119,7 +119,7 @@
       </div>
 
       <input type="submit" id="submit" class="submit-btn" value="Submit Booking" name="submit">
-      <?php if($_GET['edit']): ?>
+      <?php if(isset($_GET['edit'])): ?>
         <input type="hidden" name="book_id" id="book_id">
       <?php endif; ?>
       <div class="message" id="responseMessage"></div>

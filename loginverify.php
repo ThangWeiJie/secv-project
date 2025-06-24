@@ -36,11 +36,15 @@
         $_SESSION["PHONE"] = $fetchedPhone;
         $_SESSION["ROLE"] = $fetchedUserType;
 
-        setcookie("user", $fetchedUserName, time() + 60*60*24);
+        $activityMessage = "User logged in";
+        $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+        $stmt = $conn->prepare($activityQuery);
+        $stmt->bind_param("is", $fetchedUserID, $activityMessage);
+        $stmt->execute();
 
-        // echo "Welcome, " . $_SESSION["USER"];
+        setcookie("user", $fetchedUserName, time() + 60*60*24);
         header("Location: Homepage.php");
-        print_r($_SESSION);
+
     } else {
         $_SESSION["LOGGED"] = FALSE;
         // echo "There seems to be a problem. Please login again.";

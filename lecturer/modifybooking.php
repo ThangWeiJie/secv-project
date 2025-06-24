@@ -44,5 +44,12 @@
         if($stmt->affected_rows > 0) {
             echo "Your booking has been modified";
         }
+
+        $activityMessage = "Booking modified";
+        $fetchedUserID = $_SESSION["USERID"];
+        $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+        $stmt = $conn->prepare($activityQuery);
+        $stmt->bind_param("is", $fetchedUserID, $activityMessage);
+        $stmt->execute();
     }
 ?>
