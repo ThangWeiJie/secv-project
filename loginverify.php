@@ -7,7 +7,7 @@
     $enteredUsername = $_POST["username"];
     $enteredPassword = $_POST["password"];
 
-    $query = "SELECT * FROM usertable WHERE username='$enteredUsername' AND pass='$enteredPassword'";
+    $query = "SELECT * FROM usertable WHERE username='$enteredUsername' AND password='$enteredPassword'";
     $result = mysqli_query($conn, $query);
 
     $userrow = mysqli_fetch_assoc($result);
@@ -18,7 +18,7 @@
 
     $fetchedUserID = $userrow["user_id"];
     $fetchedUserName = $userrow["username"];
-    $fetchedPassword = $userrow["pass"];
+    $fetchedPassword = $userrow["password"];
     $fetchedFullName = $userrow["full_name"];
     $fetchedEmail = $userrow["email"];
     $fetchedPhone = $userrow["phone"];
