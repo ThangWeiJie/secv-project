@@ -2,7 +2,7 @@
 require_once('config.php');
 session_start();
 
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'space_manager') {
     echo "<p>Access denied.</p>";
     exit();
 }
