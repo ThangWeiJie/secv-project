@@ -80,6 +80,10 @@ $bookings = $bookingQuery->get_result();
 </head>
 <body>
 
+<?php if(isset($_GET["updated"])): ?>
+    <p style="text-align: center;">Update successful.<p>
+<?php endif; ?>
+
 <div class="profile">
     <h2>User Profile</h2>
     <div class="info">
@@ -89,9 +93,10 @@ $bookings = $bookingQuery->get_result();
         <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
         <p><strong>Phone:</strong> <?= htmlspecialchars($user['phone']) ?></p>
         <p><strong>Role:</strong> <?= htmlspecialchars($user['role']) ?></p>
+        <p><a href="user-profile.php?update=1">Update profile</a></p>
     </div>
 
-    <h3>Booking History</h3>
+    <!-- <h3>Booking History</h3>
     <table>
         <thead>
             <tr>
@@ -104,30 +109,55 @@ $bookings = $bookingQuery->get_result();
             </tr>
         </thead>
         <tbody>
-        <?php
-        foreach ($bookings as $booking) {
-            $bookingTime = strtotime($booking['start_date'] . ' ' . $booking['start_time']);
-            $isFuture = $bookingTime > time();
+        // <?php
+        // foreach ($bookings as $booking) {
+        //     $bookingTime = strtotime($booking['start_date'] . ' ' . $booking['start_time']);
+        //     $isFuture = $bookingTime > time();
 
-            echo "<tr" . ($isFuture ? " class='future'" : "") . ">";
-            echo "<td>{$booking['booking_id']}</td>";
-            echo "<td>{$booking['room']}</td>";
-            echo "<td>{$booking['start_date']}</td>";
-            echo "<td>{$booking['start_time']}</td>";
-            echo "<td>" . ($isFuture ? "Upcoming" : "Completed") . "</td>";
-            echo "<td class='actions'>";
-            if ($isFuture) {
-                echo "<a href='edit-booking.php?id={$booking['booking_id']}'>Edit</a>";
-                echo "<a href='delete-booking.php?id={$booking['booking_id']}' onclick='return confirm(\"Are you sure?\");'>Delete</a>";
-            } else {
-                echo "-";
-            }
-            echo "</td></tr>";
-        }
-        ?>
+        //     echo "<tr" . ($isFuture ? " class='future'" : "") . ">";
+        //     echo "<td>{$booking['booking_id']}</td>";
+        //     echo "<td>{$booking['room']}</td>";
+        //     echo "<td>{$booking['start_date']}</td>";
+        //     echo "<td>{$booking['start_time']}</td>";
+        //     echo "<td>" . ($isFuture ? "Upcoming" : "Completed") . "</td>";
+        //     echo "<td class='actions'>";
+        //     if ($isFuture) {
+        //         echo "<a href='edit-booking.php?id={$booking['booking_id']}'>Edit</a>";
+        //         echo "<a href='delete-booking.php?id={$booking['booking_id']}' onclick='return confirm(\"Are you sure?\");'>Delete</a>";
+        //     } else {
+        //         echo "-";
+        //     }
+        //     echo "</td></tr>";
+        // }
+        // ?>
         </tbody>
-    </table>
+    </table> -->
 </div>
+
+<?php if(isset($_GET["update"])): ?>
+    <div class="profile">
+        <h2>Update</h2>
+        <table style="border: none;">
+            <form method="post" action="update_profile.php">
+            <tr style="border: none;">
+                <td style="border: none;">New Username:</td>
+                <td style="border: none;"> <input type="text" name="newusername" value=<?php echo $user['username']; ?>></td>
+            </tr>
+            <tr style="border: none;">
+                <td style="border: none;">New Email:</td>
+                <td style="border: none;"> <input type="text" name="newemail" value=<?php echo $user['email']; ?>></td>
+            </tr>
+            <tr style="border: none;">
+                <td style="border: none;">New Phone:</td>
+                <td style="border: none;"> <input type="text" name="newphone" value=<?php echo $user['phone']; ?>></td>
+            </tr>
+            <tr>
+                <td style="border: none;"><input type="submit" name="submit" value="Update"></td>
+            </tr>
+            <form>
+        </table>
+    </div>
+<?php endif; ?>
 
 </body>
 </html>
