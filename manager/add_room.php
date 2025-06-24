@@ -1,8 +1,8 @@
 <?php
 require_once('../config.php');
-session_start();
+require_once('../auth.php');
 
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'space_manager') {
+if (!isset($_SESSION['USERID']) || $_SESSION['ROLE'] !== 'space_manager') {
     echo "Access denied.";
     exit();
 }
@@ -21,6 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<p style='color:red;'>Error: " . $stmt->error . "</p>";
     }
+
+    $activityMessage = "Room added";
+    $fetchedUserID = $_SESSION["USERID"];
+    $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+    $stmt = $conn->prepare($activityQuery);
+    $stmt->bind_param("is", $fetchedUserID, $activityMessage);
+    $stmt->execute();
+
 
     $stmt->close();
 }

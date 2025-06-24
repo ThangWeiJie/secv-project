@@ -2,7 +2,7 @@
   session_start();
   require_once("../config.php");
 
-  if($_SESSION["ROLE"] != "admin") {
+  if($_SESSION["ROLE"] != "space_manager") {
     echo "<p>You are not allowed to view this page!</p>";
     echo "<a href='user-profile.php'>Click here to go back to the homepage.</a>";
     exit();

@@ -1,9 +1,9 @@
 <?php
 require_once('../config.php');
-session_start();
+require_once('../auth.php');
 
 // Access control
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'space_manager') {
+if (!isset($_SESSION['USER']) || $_SESSION['ROLE'] !== 'space_manager') {
     echo "<p>Access denied. Only space managers can manage rooms.</p>";
     exit();
 }

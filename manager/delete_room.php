@@ -1,28 +1,35 @@
 <?php
-require_once('../config.php');
-session_start();
+    require_once('../config.php');
+    require_once('../auth.php');
 
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'space_manager') {
-    echo "Access denied.";
-    exit();
-}
+    if (!isset($_SESSION['USERID']) || $_SESSION['ROLE'] !== 'space_manager') {
+        echo "Access denied.";
+        exit();
+    }
 
-$room_id = $_GET['id'] ?? '';
-if (!$room_id) {
-    echo "Invalid room ID.";
-    exit();
-}
+    $room_id = $_GET['id'] ?? '';
+    if (!$room_id) {
+        echo "Invalid room ID.";
+        exit();
+    }
 
-$stmt = $conn->prepare("DELETE FROM room WHERE room_id = ?");
-$stmt->bind_param("i", $room_id);
+    $stmt = $conn->prepare("DELETE FROM room WHERE room_id = ?");
+    $stmt->bind_param("i", $room_id);
 
-if ($stmt->execute()) {
-    echo "<p>Room deleted successfully.</p>";
-} else {
-    echo "<p style='color:red;'>Error: " . $stmt->error . "</p>";
-}
+    if ($stmt->execute()) {
+        echo "<p>Room deleted successfully.</p>";
+    } else {
+        echo "<p style='color:red;'>Error: " . $stmt->error . "</p>";
+    }
 
-$stmt->close();
+    $activityMessage = "Room deleted";
+    $fetchedUserID = $_SESSION["USERID"];
+    $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+    $stmt = $conn->prepare($activityQuery);
+    $stmt->bind_param("is", $fetchedUserID, $activityMessage);
+    $stmt->execute();
 
-echo "<a href='manage_room.php'>← Back to Room List</a>";
+    $stmt->close();
+
+    echo "<a href='manage_room.php'>← Back to Room List</a>";
 ?>

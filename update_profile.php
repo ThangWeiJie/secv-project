@@ -18,5 +18,12 @@
         if($stmt->affected_rows > 0) {
             header("Location: user-profile.php?updated=1");
         }
+
+        $activityMessage = "Updated user profile";
+        $fetchedUserID = $_SESSION["USERID"];
+        $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+        $stmt = $conn->prepare($activityQuery);
+        $stmt->bind_param("is", $fetchedUserID, $activityMessage);
+        $stmt->execute();
     }
 ?>

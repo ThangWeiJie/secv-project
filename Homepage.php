@@ -42,7 +42,8 @@
     <?php if($_SESSION["ROLE"] == "space_manager"): ?>
         <h1>You are a space manager</h1>
         <a href="user-profile.php">Profile</a> <br><br>
-        <a href="approvalscopy.php">Approvals</a> <br><br>
+        <a href="manager/approvalscopy.php">Approvals</a> <br><br>
+        <a href="manager/manage_room.php">Room management</a> <br><br>
         <a href="Homepage.php?LOGOUT=1">Logout</a>
     <?php endif; ?>
 </body>

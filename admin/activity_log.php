@@ -5,8 +5,8 @@ echo "<h2>Activity Log</h2><table border='1'><tr><th>User</th><th>Action</th><th
 while ($row = $result->fetch_assoc()) {
     echo "<tr>
         <td>{$row['full_name']}</td>
-        <td>{$row['action']}</td>
-        <td>{$row['timestamp']}</td>
+        <td>{$row['action_description']}</td>
+        <td>{$row['action_timestamp']}</td>
     </tr>";
 }
 echo "</table>";

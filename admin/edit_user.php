@@ -1,10 +1,19 @@
 <?php
+require_once('../auth.php');
 require_once('../config.php');
 $id = $_GET['id'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("UPDATE usertable SET full_name=?, email=?, role=?, phone=? WHERE user_id=?");
     $stmt->bind_param("ssssi", $_POST['full_name'], $_POST['email'], $_POST['role'], $_POST['phone'], $id);
     $stmt->execute();
+
+    $activityMessage = "User updated";
+    $fetchedUserID = $_SESSION["USERID"];
+    $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+    $stmt = $conn->prepare($activityQuery);
+    $stmt->bind_param("is", $fetchedUserID, $activityMessage);
+    $stmt->execute();
+
     header("Location: manage_users.php");
     exit();
 }
