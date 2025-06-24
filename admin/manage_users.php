@@ -6,7 +6,14 @@ if (!isset($_SESSION['ROLE']) || $_SESSION['ROLE'] !== 'admin') {
     header("Location: ../login.php");
     exit();
 }
-$result = $conn->query("SELECT * FROM usertable");
+
+// Search logic
+if (isset($_GET['search']) && $_GET['search'] !== '') {
+    $search = $conn->real_escape_string($_GET['search']);
+    $result = $conn->query("SELECT * FROM usertable WHERE username LIKE '%$search%'");
+} else {
+    $result = $conn->query("SELECT * FROM usertable");
+}
 $message = "Are you sure you want to delete this user?";
 ?>
 <!DOCTYPE html>
@@ -36,6 +43,39 @@ $message = "Are you sure you want to delete this user?";
             padding-bottom: 10px;
             color: #1e3a8a;
             text-align: center;
+        }
+        .search-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-form input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+        .search-form button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            background: #1e3a8a;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 5px;
+            transition: background 0.2s;
+        }
+        .search-form button:hover {
+            background: #2563eb;
+        }
+        .search-form a {
+            margin-left: 10px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .search-form a:hover {
+            text-decoration: underline;
         }
         table {
             width: 100%;
@@ -79,25 +119,25 @@ $message = "Are you sure you want to delete this user?";
             background: #2563eb;
         }
         .return-home-btn {
-        position: fixed;
-        right: 30px;
-        bottom: 30px;
-        background: #1e3a8a;
-        color: #fff;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 8px;
-        font-size: 1em;
-        cursor: pointer;
-        text-decoration: none;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        transition: background 0.2s;
-        text-align: center;
-        z-index: 100;
-    }
-    .return-home-btn:hover {
-        background: #2563eb;
-    }
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            background: #1e3a8a;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+            text-align: center;
+            z-index: 100;
+        }
+        .return-home-btn:hover {
+            background: #2563eb;
+        }
         .center {
             text-align: center;
         }
@@ -106,6 +146,13 @@ $message = "Are you sure you want to delete this user?";
 <body>
 <div class="manage-users-container">
     <h2>User Management</h2>
+    <form method="get" class="search-form">
+        <input type="text" name="search" placeholder="Search username..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+        <button type="submit">Search</button>
+        <?php if(isset($_GET['search']) && $_GET['search'] !== ''): ?>
+            <a href="manage_users.php">Clear</a>
+        <?php endif; ?>
+    </form>
     <table>
         <tr>
             <th>ID</th>
@@ -128,8 +175,7 @@ $message = "Are you sure you want to delete this user?";
     <div class="center">
         <a href='add_user.php' class='add-user-btn'>Add New User</a>
     </div>
-    
-        </div>
+</div>
 <a href="../Homepage.php" class="return-home-btn">&#8592; Return Home</a>
 </body>
 </html>
