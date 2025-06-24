@@ -23,7 +23,32 @@ $bookingQuery->bind_param("i", $user_id);
 $bookingQuery->execute();
 $bookings = $bookingQuery->get_result();
 ?>
-
+<style>
+body {
+    background-color: #add8e6; /* light blue */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+.return-home-btn {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background: #1e3a8a;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: background 0.2s;
+}
+.return-home-btn:hover {
+    background: #2563eb;
+}
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +57,7 @@ $bookings = $bookingQuery->get_result();
     <style>
         body {
             font-family: Arial;
-            background-color: #f9f9f9;
+            background-color:rgb(230, 240, 255);
             padding: 20px;
         }
 
@@ -74,7 +99,7 @@ $bookings = $bookingQuery->get_result();
         }
 
         .future {
-            background-color: #e6f7ff;
+            background-color:rgb(7, 11, 14);
         }
     </style>
 </head>
@@ -158,6 +183,6 @@ $bookings = $bookingQuery->get_result();
         </table>
     </div>
 <?php endif; ?>
-
+<a href="Homepage.php" class="return-home-btn">&#8592; Return Home</a>
 </body>
 </html>
