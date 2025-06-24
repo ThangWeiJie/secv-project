@@ -151,7 +151,7 @@
 <?php
   if(isset($_POST["roomsearch"])) {
     $roomToSearch = $_POST["roomsearch"];
-    $searchQuery = "SELECT * FROM room WHERE room_name LIKE '$roomToSearch%'";
+    $searchQuery = "SELECT * FROM room WHERE room_name LIKE '%$roomToSearch%'";
     $searchResult = mysqli_query($conn, $searchQuery);
 
     printf("<h2 style='display:inline;'>%u result(s) found.</h2> &nbsp; &nbsp; <a href='availableRoom.php'>Back</a>", mysqli_num_rows($searchResult));
