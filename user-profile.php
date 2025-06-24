@@ -1,14 +1,11 @@
 <?php
-session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+require_once("auth.php");
+require_once("config.php");
 
 // Get user data from database
-$user_id = $_SESSION['user_id'];
-$userQuery = $conn->prepare("SELECT * FROM user WHERE user_id = ?");
+$user_id = $_SESSION['USERID'];
+$userQuery = $conn->prepare("SELECT * FROM usertable WHERE user_id = ?");
 $userQuery->bind_param("i", $user_id);
 $userQuery->execute();
 $userResult = $userQuery->get_result();
@@ -16,11 +13,11 @@ $user = $userResult->fetch_assoc();
 
 // Get booking history
 $bookingQuery = $conn->prepare("
-    SELECT b.booking_id, r.room_name AS room, b.date, b.start_time 
+    SELECT b.booking_id, r.room_name AS room, b.start_date, b.start_time 
     FROM booking b 
     JOIN room r ON b.room_id = r.room_id 
-    WHERE b.user_id = ? 
-    ORDER BY b.date DESC, b.start_time DESC
+    WHERE b.lecturer_id = ? 
+    ORDER BY b.start_date DESC, b.start_time DESC
 ");
 $bookingQuery->bind_param("i", $user_id);
 $bookingQuery->execute();
@@ -109,19 +106,19 @@ $bookings = $bookingQuery->get_result();
         <tbody>
         <?php
         foreach ($bookings as $booking) {
-            $bookingTime = strtotime($booking['date'] . ' ' . $booking['time']);
+            $bookingTime = strtotime($booking['start_date'] . ' ' . $booking['start_time']);
             $isFuture = $bookingTime > time();
 
             echo "<tr" . ($isFuture ? " class='future'" : "") . ">";
-            echo "<td>{$booking['id']}</td>";
+            echo "<td>{$booking['booking_id']}</td>";
             echo "<td>{$booking['room']}</td>";
-            echo "<td>{$booking['date']}</td>";
-            echo "<td>{$booking['time']}</td>";
+            echo "<td>{$booking['start_date']}</td>";
+            echo "<td>{$booking['start_time']}</td>";
             echo "<td>" . ($isFuture ? "Upcoming" : "Completed") . "</td>";
             echo "<td class='actions'>";
             if ($isFuture) {
-                echo "<a href='edit-booking.php?id={$booking['id']}'>Edit</a>";
-                echo "<a href='delete-booking.php?id={$booking['id']}' onclick='return confirm(\"Are you sure?\");'>Delete</a>";
+                echo "<a href='edit-booking.php?id={$booking['booking_id']}'>Edit</a>";
+                echo "<a href='delete-booking.php?id={$booking['booking_id']}' onclick='return confirm(\"Are you sure?\");'>Delete</a>";
             } else {
                 echo "-";
             }

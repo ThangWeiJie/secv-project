@@ -22,10 +22,10 @@
     <?php endif; ?>
     <?php if($_SESSION["ROLE"] == "lecturer"): ?>
         <a href="user-profile.php">Profile</a> <br><br>
-        <a href="my_bookings.php">Own bookings</a> <br><br>
-        <a href="feedback.html">Feedback Form</a> <br><br>
-        <a href="booking.html">Booking Application</a> <br> <br>
-        <a href="availableRoom.php">Browse Available Rooms</a> <br><br>
+        <a href="lecturer/my_bookings.php">Own bookings</a> <br><br>
+        <a href="lecturer/feedback.html">Feedback Form</a> <br><br>
+        <a href="lecturer/booking.html">Booking Application</a> <br> <br>
+        <a href="lecturer/availableRoom.php">Browse Available Rooms</a> <br><br>
         <a href="Homepage.php?LOGOUT=1">Logout</a>  
     <?php endif; ?>
     <?php if($_SESSION["ROLE"] == "space_manager"): ?>

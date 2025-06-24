@@ -100,17 +100,6 @@
         <label for="room">Room</label>
         <input type="text" id="room" name="room" required>
 
-        <script>
-          const searchParams = new URLSearchParams(window.location.search);
-          const previousRoomID = searchParams.get('roomId');
-
-          console.log(previousRoomID);
-
-          if(previousRoomID) {
-            document.getElementById('room').value = previousRoomID;
-          }
-        </script>
-
       </div>
       <div class="form-group">
         <label for="date">Date</label>
@@ -129,8 +118,42 @@
         <textarea id="purpose" name="purpose" rows="3" required></textarea>
       </div>
 
-      <input type="submit" class="submit-btn" value="Submit Booking" name="submit">
+      <input type="submit" id="submit" class="submit-btn" value="Submit Booking" name="submit">
+      <?php if($_GET['edit']): ?>
+        <input type="hidden" name="book_id" id="book_id">
+      <?php endif; ?>
       <div class="message" id="responseMessage"></div>
+
+      <script>
+          const searchParams = new URLSearchParams(window.location.search);
+          const bookingID = searchParams.get('bookId');
+          const previousRoomID = searchParams.get('roomId');
+          const previousDate = searchParams.get('date');
+          const previousStartTime = searchParams.get('startTime').substring(0, 5);
+          const previousEndTime = searchParams.get('endTime').substring(0, 5);
+          const purpose = searchParams.get('purpose');
+          const editFlag = searchParams.get('edit');
+
+          console.log(bookingID);
+          console.log(previousRoomID);
+          console.log(editFlag);
+          console.log(previousDate);
+
+          if(previousRoomID) {
+            document.getElementById('room').value = previousRoomID;
+          }
+
+          if(editFlag) {
+            document.getElementById('bookingForm').action = 'modifybooking.php';
+            document.getElementById('book_id').value = bookingID;
+            document.getElementById('room').value = previousRoomID;
+            document.getElementById('date').value = previousDate;
+            document.getElementById('startTime').value = previousStartTime;
+            document.getElementById('endTime').value = previousEndTime;
+            document.getElementById('purpose').value = purpose;
+            document.getElementById('submit').value = "Modify booking";
+          }
+        </script>
     </form>
   </div>
 
