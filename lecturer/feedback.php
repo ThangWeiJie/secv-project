@@ -1,14 +1,14 @@
 <?php
-require_once('config.php');
+require_once('../config.php');
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['USERID'])) {
     echo "<p>You must be logged in to submit feedback.</p>";
     exit();
 }
 
 if (isset($_POST['submit'])) {
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['USERID'];
     $satisfaction = $_POST['satisfaction'] ?? '';
     $resolved = isset($_POST['resolved']) ? 1 : 0;
     $professionalism = $_POST['professionalism'] ?? '';
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
 
         if ($stmt->execute()) {
             echo "<h3>🎉 Feedback submitted successfully!</h3>";
-            echo "<a href='homepage.php'>← Back to Home</a>";
+            echo "<a href='../Homepage.php'>← Back to Home</a>";
         } else {
             echo "<h3 style='color:red;'>Database error: " . $stmt->error . "</h3>";
         }
@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
 
 echo "<h3>📋 All Feedback Submissions</h3>";
 $sql = "SELECT f.*, u.username FROM feedback f 
-        JOIN user u ON f.user_id = u.user_id 
+        JOIN usertable u ON f.user_id = u.user_id 
         ORDER BY f.submitted_at DESC";
 
 $result = mysqli_query($conn, $sql);

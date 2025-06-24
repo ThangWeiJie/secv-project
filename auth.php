@@ -2,7 +2,7 @@
     session_start();
 
     if(!$_SESSION["LOGGED"]) {
-        header("Location: login.php");
+        header("Location: index.php");
     }
 
 ?>

@@ -72,7 +72,7 @@
   </div>
 
   <div class="container">
-    <form>
+    <form action="feedback.php" method="post">
       <div class="form-group">
         <label>1. How satisfied were you with the booking process?</label>
         <div class="inline-group">
@@ -110,6 +110,10 @@
       <div class="form-group">
         <label for="comments">5. Additional comments or suggestions:</label>
         <textarea id="comments" name="comments"></textarea>
+      </div>
+
+      <div class="form-group">
+        <input type="submit" name="submit" value="Submit Feedback">
       </div>
     </form>
   </div>
