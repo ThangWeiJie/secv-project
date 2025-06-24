@@ -5,7 +5,7 @@
     // print_r($_POST);
 
     $enteredUsername = $_POST["username"];
-    $enteredPassword = $_POST["password"];
+    $enteredPassword = md5($_POST["password"]);
 
     $query = "SELECT * FROM usertable WHERE username='$enteredUsername' AND pass='$enteredPassword'";
     $result = mysqli_query($conn, $query);
@@ -18,7 +18,7 @@
 
     $fetchedUserID = $userrow["user_id"];
     $fetchedUserName = $userrow["username"];
-    $fetchedPassword = $userrow["password"];
+    $fetchedPassword = md5($userrow["password"]);
     $fetchedFullName = $userrow["full_name"];
     $fetchedEmail = $userrow["email"];
     $fetchedPhone = $userrow["phone"];
