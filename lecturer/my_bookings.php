@@ -123,25 +123,43 @@
   <?php
     if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)) {
-        printf('
-          <tr>
-            <td>%u</td>
-            <td>%s</td>
-            <td>%s</td>
-            <td>%s</td>
-            <td>%s - %s</td>
-            <td>%s</td>
-            <td>
-              <form method="post" action="modifybooking.php">
-                <input type="submit" class="btn edit-btn" name="btn-edit" value="Edit">
-                <input type="submit" onclick="return confirm(\'%s\');" class="btn delete-btn" name="btn-delete" value="Delete">
-								<input type="hidden" name="book_id" value="%u">
-              </form>
-            </td>
-          </tr>
-        ', $row['booking_id'], $roomname["room_name"], $fullname["full_name"], $row["start_date"], $row["start_time"], $row["end_time"], $row["purpose"], "Are you sure you want to delete this row?", $row["booking_id"]);
+        $bookingStart = $row["start_date"] . " " . $row["start_time"];
+        $bookingStartTimestamp = strtotime($bookingStart);
+        $currentTimestamp = time();
+
+        $actionButtons = "";
+        if ($currentTimestamp < $bookingStartTimestamp) {
+          $actionButtons = sprintf('
+            <form method="post" action="modifybooking.php">
+            <input type="submit" class="btn edit-btn" name="btn-edit" value="Edit">
+            <input type="submit" onclick="return confirm(\'%s\');" class="btn delete-btn" name="btn-delete" value="Delete">
+            <input type="hidden" name="book_id" value="%u">
+          </form>
+        ', "Are you sure you want to delete this row?", $row["booking_id"]);
       }
-    }
+
+      printf('
+      <tr>
+        <td>%u</td>
+        <td>%s</td>
+        <td>%s</td>
+        <td>%s</td>
+        <td>%s - %s</td>
+        <td>%s</td>
+        <td>%s</td>
+      </tr>
+    ',
+    $row['booking_id'],
+    $roomname["room_name"],
+    $fullname["full_name"],
+    $row["start_date"],
+    $row["start_time"],
+    $row["end_time"],
+    $row["purpose"],
+    $actionButtons
+    );
+  }
+}
   ?>
 </table>
 <a href="../Homepage.php" class="return-home-btn">&#8592; Return Home</a>
