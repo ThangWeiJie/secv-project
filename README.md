@@ -1,7 +1,7 @@
 
 <h2>In progress ⏳</h2>
 <ul>
-	<li>Homepage.php</li>
+	<li>homepage.php</li>
 	<li>user-profile.php</li>
 	<li>update_profile.php</li> 
 </ul>
