@@ -188,6 +188,7 @@
         <p><strong>Room ID:</strong> ${room.room_id}</p>
         <p><strong>Type:</strong> ${room.type}</p>
         <p><strong>Size:</strong> ${room.size} pax</p>
+        <p><strong>Availability:</strong> ${room.availability}</p>
         <button class="btn details" onclick="showDetails(${room.room_id})">View Details</button>
         <a href="booking.html?roomId=${room.room_id}" class="btn book">Book</a>
       `;
