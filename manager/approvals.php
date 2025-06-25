@@ -206,7 +206,6 @@
 	// 		$approveQuery = "UPDATE booking SET booking_status='approved', reviewed_by='$reviewerID' WHERE booking_id='$idToApprove'";
 	// 		$approveResult = mysqli_query($conn, $approveQuery);
 		
-<<<<<<< HEAD
 			if(mysqli_affected_rows($conn) > 0) {
 				header("Location: approvals.php");
 		}
@@ -219,20 +218,6 @@
 				header("Location: approvals.php");
 		}
 	}
-=======
-	// 		if(mysqli_affected_rows($conn) > 0) {
-	// 			header("Location: approvals.php");
-	// 	}
-	// } else if(isset($_POST["btn-reject"])) {
-	// 		$idToReject = $_POST['book_id'];
-	// 		$rejectQuery = "UPDATE booking SET booking_status='rejected', reviewed_by='$reviewerID' WHERE booking_id = '$idToReject'";
-	// 		$rejectResult = mysqli_query($conn, $rejectQuery);
-
-	// 		if(mysqli_affected_rows($conn) > 0) {
-	// 			header("Location: approvals.php");
-	// 	}
-	// }
->>>>>>> 371d29bb4c029e146de56e90ae27e0191228e8cd
   ?>
 </table>
 <a href="../Homepage.php" class="return-home-btn">&#8592; Return Home</a>
