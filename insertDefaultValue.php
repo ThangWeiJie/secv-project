@@ -39,25 +39,6 @@ while (mysqli_more_results($conn)) {
     mysqli_next_result($conn);
 }
 
-$sql = "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
-VALUES(1, 'PC', 30, 1);";
-$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
-VALUES(1, 'Projector', 1, 0);";
-$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
-VALUES(2, 'Microphone', 2, 1);";
-$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
-VALUES(3, 'Monitor', 25, 1);";
-$sql .= "INSERT INTO room_equipment (room_id, equipment_name, quantity, equipment_condition)
-VALUES(4, 'Speakers', 4, 1);";
-if(mysqli_multi_query($conn, $sql)) {
-    echo "Room equipment records inserted successfully.";
-} else {
-    echo "Error inserting room equipment record: " . mysqli_error($conn);
-}
-while (mysqli_more_results($conn)) {
-    mysqli_next_result($conn);
-}
-
 $sql = "INSERT INTO booking (room_id, user_id, date, start_time, end_time, purpose, status)
 VALUES(1, 3, '2025-06-20', '10:00:00', '12:00:00', 'Java Lab', 'pending');";
 $sql .= "INSERT INTO booking (room_id, user_id, date, start_time, end_time, purpose, status)
