@@ -121,6 +121,7 @@ $message = "Are you sure you want to delete this room?";
                 <th>Room Name</th>
                 <th>Type</th>
                 <th>Size</th>
+                <th>Availability</th>
                 <th>Action</th>
             </tr>
             <?php while ($row = $result->fetch_assoc()): ?>
@@ -129,6 +130,7 @@ $message = "Are you sure you want to delete this room?";
                 <td><?= htmlspecialchars($row['room_name']) ?></td>
                 <td><?= htmlspecialchars($row['type']) ?></td>
                 <td><?= htmlspecialchars($row['size']) ?></td>
+                <td><?= htmlspecialchars($row['availability']) ?></td>
                 <td class="actions">
                     <a href='edit_room.php?id=<?= $row['room_id'] ?>'>Edit</a> | 
                     <a href='delete_room.php?id=<?= $row['room_id'] ?>' onclick='return confirm("<?= $message ?>");'>Delete</a>
