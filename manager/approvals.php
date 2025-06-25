@@ -209,7 +209,7 @@
 			if(mysqli_affected_rows($conn) > 0) {
 				header("Location: approvals.php");
 		}
-	} else if(isset($_POST["btn-reject"])) {
+	 else if(isset($_POST["btn-reject"])) {
 			$idToReject = $_POST['book_id'];
 			$rejectQuery = "UPDATE booking SET booking_status='rejected', reviewed_by='$reviewerID' WHERE booking_id = '$idToReject'";
 			$rejectResult = mysqli_query($conn, $rejectQuery);
