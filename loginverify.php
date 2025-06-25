@@ -13,7 +13,7 @@
     $userrow = mysqli_fetch_assoc($result);
 
     if(!isset($userrow)) {  
-        header("Location: login.php?err=1");
+        header("Location: index.php?err=1");
     }
 
     $fetchedUserID = $userrow["user_id"];
