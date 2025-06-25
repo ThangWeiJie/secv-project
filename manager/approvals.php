@@ -19,6 +19,67 @@
   $joinresult_room = mysqli_query($conn, $joinquery_room);
   $roomname = mysqli_fetch_assoc($joinresult_room);
 
+  $currentTimestamp = time();
+
+  $bookingQuery = "SELECT * FROM booking WHERE booking_status='approved'";
+  $bookingResult = mysqli_query($conn, $bookingQuery);
+
+  if ($bookingResult) {
+    $roomStatus = [];
+
+    while ($bookingRow = mysqli_fetch_assoc($bookingResult)) {
+      $startTimestamp = strtotime($bookingRow['start_date'] . " " . $bookingRow['start_time']);
+      $endTimestamp = strtotime($bookingRow['start_date'] . " " . $bookingRow['end_time']);
+      $roomId = $bookingRow['room_id'];
+
+      if ($currentTimestamp >= $startTimestamp && $currentTimestamp <= $endTimestamp) {
+        $roomStatus[$roomId] = 'Unavailable';
+      } else {
+        if (!isset($roomStatus[$roomId])) {
+          $roomStatus[$roomId] = 'Available';
+        }
+      }
+    }
+
+  
+    foreach ($roomStatus as $roomId => $status) {
+    mysqli_query($conn, "UPDATE room SET availability='$status' WHERE room_id=$roomId");
+  }
+}
+
+    $reviewerID = $_SESSION['USERID'];
+  	if(isset($_POST["btn-approve"])) {
+			$idToApprove = $_POST['book_id'];
+			$approveQuery = "UPDATE booking SET booking_status='approved', reviewed_by='$reviewerID' WHERE booking_id='$idToApprove'";
+			$approveResult = mysqli_query($conn, $approveQuery);
+		
+			if(mysqli_affected_rows($conn) > 0) {
+
+        $activityMessage = "Booking approved";
+        $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+        $stmt = $conn->prepare($activityQuery);
+        $stmt->bind_param("is", $reviewerID, $activityMessage);
+        $stmt->execute();
+
+				header("Location: approvals.php");
+      }
+		} else if(isset($_POST["btn-reject"])) {
+			$idToReject = $_POST['book_id'];
+			$rejectQuery = "UPDATE booking SET booking_status='rejected', reviewed_by='$reviewerID' WHERE booking_id = '$idToReject'";
+			$rejectResult = mysqli_query($conn, $rejectQuery);
+
+			if(mysqli_affected_rows($conn) > 0) {
+
+        $activityMessage = "Booking rejected";
+        $activityQuery = "INSERT INTO activity_log(user_id, action_description) VALUES (?, ?)";
+        $stmt = $conn->prepare($activityQuery);
+        $stmt->bind_param("is", $reviewerID, $activityMessage);
+        $stmt->execute();
+
+				header("Location: approvals.php");
+		}
+	}
+
   // print_r($fullname["full_name"]);
 ?>
 
@@ -139,12 +200,13 @@
       }
     }
 
-		$reviewerID = $_SESSION['USERID'];
-  	if(isset($_POST["btn-approve"])) {
-			$idToApprove = $_POST['book_id'];
-			$approveQuery = "UPDATE booking SET booking_status='approved', reviewed_by='$reviewerID' WHERE booking_id='$idToApprove'";
-			$approveResult = mysqli_query($conn, $approveQuery);
+	// 	$reviewerID = $_SESSION['USERID'];
+  // 	if(isset($_POST["btn-approve"])) {
+	// 		$idToApprove = $_POST['book_id'];
+	// 		$approveQuery = "UPDATE booking SET booking_status='approved', reviewed_by='$reviewerID' WHERE booking_id='$idToApprove'";
+	// 		$approveResult = mysqli_query($conn, $approveQuery);
 		
+<<<<<<< HEAD
 			if(mysqli_affected_rows($conn) > 0) {
 				header("Location: approvals.php");
 		}
@@ -157,6 +219,20 @@
 				header("Location: approvals.php");
 		}
 	}
+=======
+	// 		if(mysqli_affected_rows($conn) > 0) {
+	// 			header("Location: approvals.php");
+	// 	}
+	// } else if(isset($_POST["btn-reject"])) {
+	// 		$idToReject = $_POST['book_id'];
+	// 		$rejectQuery = "UPDATE booking SET booking_status='rejected', reviewed_by='$reviewerID' WHERE booking_id = '$idToReject'";
+	// 		$rejectResult = mysqli_query($conn, $rejectQuery);
+
+	// 		if(mysqli_affected_rows($conn) > 0) {
+	// 			header("Location: approvals.php");
+	// 	}
+	// }
+>>>>>>> 371d29bb4c029e146de56e90ae27e0191228e8cd
   ?>
 </table>
 <a href="../Homepage.php" class="return-home-btn">&#8592; Return Home</a>

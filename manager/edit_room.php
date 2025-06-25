@@ -29,9 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $room_name = $_POST['room_name'];
     $type = $_POST['type'];
     $size = $_POST['size'];
+    $availability = $_POST['availability'];
 
-    $updateStmt = $conn->prepare("UPDATE room SET room_name = ?, type = ?, size = ? WHERE room_id = ?");
-    $updateStmt->bind_param("ssii", $room_name, $type, $size, $room_id);
+    $updateStmt = $conn->prepare("UPDATE room SET room_name = ?, type = ?, size = ?, availability = ? WHERE room_id = ?");
+    $updateStmt->bind_param("ssisi", $room_name, $type, $size, $availability, $room_id);
 
     if ($updateStmt->execute()) {
         echo "<p>Room updated successfully!</p>";
@@ -56,5 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     Room Name: <input type="text" name="room_name" value="<?= htmlspecialchars($room['room_name']) ?>" required><br>
     Type: <input type="text" name="type" value="<?= htmlspecialchars($room['type']) ?>" required><br>
     Size: <input type="number" name="size" value="<?= $room['size'] ?>" required><br>
+    <!-- Availability: <input type="number" name="size" value="<?= $room['size'] ?>" required><br> -->
+
+    <label for="availability">Availability:</label>
+    <select id="availability" name="availability">
+        <option value="Unavailable">Unavailable</option>
+        <option value="Available">Available</option>
+    </select> <br>
+
     <button type="submit">Update Room</button>
 </form>
