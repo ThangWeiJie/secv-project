@@ -209,6 +209,8 @@
         <a href="user-profile.php">Profile</a> 
         <a href="manager/approvals.php">Approvals</a> 
         <a href="manager/manage_room.php">Room management</a>
+        <a href="manager/booking_report.php">Booking report</a>
+        <a href="manager/view_feedback.php">View feedback</a>
         <a href="Homepage.php?LOGOUT=1">Logout</a>
         </div>
     <?php endif; ?>

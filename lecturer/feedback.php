@@ -20,11 +20,8 @@ if (isset($_POST['submit'])) {
     if (empty($satisfaction)) $errors[] = "Please select satisfaction level.";
     if (empty($professionalism)) $errors[] = "Please rate professionalism.";
 
-    echo "<h2>";
-    echo empty($errors) ? "✅ Thanks for your feedback!" : "❌ Please correct the following errors:";
-    echo "</h2>";
-
     if (!empty($errors)) {
+        echo "<h2 style='color:red;'>❌ Please correct the following errors:</h2>";
         echo "<ul style='color:red;'>";
         foreach ($errors as $error) {
             echo "<li>" . htmlspecialchars($error) . "</li>";
@@ -36,7 +33,7 @@ if (isset($_POST['submit'])) {
         $stmt->bind_param("isisss", $user_id, $satisfaction, $resolved, $professionalism, $improvement, $comments);
 
         if ($stmt->execute()) {
-            echo "<h3>🎉 Feedback submitted successfully!</h3>";
+            echo "<h3>🎉 Thanks for your feedback!</h3>";
             echo "<a href='../Homepage.php'>← Back to Home</a>";
         } else {
             echo "<h3 style='color:red;'>Database error: " . $stmt->error . "</h3>";
@@ -45,40 +42,6 @@ if (isset($_POST['submit'])) {
     }
 } else {
     echo "<p>No form submitted.</p>";
-}
-
-
-echo "<h3>📋 All Feedback Submissions</h3>";
-$sql = "SELECT f.*, u.username FROM feedback f 
-        JOIN usertable u ON f.user_id = u.user_id 
-        ORDER BY f.submitted_at DESC";
-
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-    echo "<table border='1' cellpadding='6'>
-            <tr>
-                <th>Username</th>
-                <th>Satisfaction</th>
-                <th>Resolved?</th>
-                <th>Professionalism</th>
-                <th>Improvement</th>
-                <th>Comments</th>
-                <th>Submitted At</th>
-            </tr>";
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "<tr>
-                <td>" . htmlspecialchars($row['username']) . "</td>
-                <td>" . htmlspecialchars($row['satisfaction']) . "</td>
-                <td>" . ($row['resolved'] ? 'Yes' : 'No') . "</td>
-                <td>" . htmlspecialchars($row['professionalism']) . "</td>
-                <td>" . nl2br(htmlspecialchars($row['improvement'])) . "</td>
-                <td>" . nl2br(htmlspecialchars($row['comments'])) . "</td>
-                <td>" . $row['submitted_at'] . "</td>
-              </tr>";
-    }
-    echo "</table>";
-} else {
-    echo "<p>No feedback submitted yet.</p>";
 }
 
 $conn->close();
