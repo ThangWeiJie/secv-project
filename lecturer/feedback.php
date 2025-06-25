@@ -10,7 +10,7 @@ if (!isset($_SESSION['USERID'])) {
 if (isset($_POST['submit'])) {
     $user_id = $_SESSION['USERID'];
     $satisfaction = $_POST['satisfaction'] ?? '';
-    $resolved = isset($_POST['resolved']) ?? '';
+    $resolved = $resolved = $_POST['resolved'] ?? '';
     $professionalism = $_POST['professionalism'] ?? '';
     $improvement = trim($_POST['improvement'] ?? '');
     $comments = trim($_POST['comments'] ?? '');
@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
         if ($stmt->execute()) {
             echo "<h3>🎉 Thanks for your feedback!</h3>";
             echo "<p><strong>Satisfaction:</strong> " . htmlspecialchars($satisfaction) . "</p>";
-            echo "<p><strong>Resolved:</strong> " . htmlspecialchars($resolved_input) . "</p>";
+            echo "<p><strong>Resolved:</strong> " . htmlspecialchars($resolved) . "</p>";
             echo "<p><strong>Professionalism:</strong> " . htmlspecialchars($professionalism) . "</p>";
             echo "<a href='../Homepage.php'>← Back to Home</a>";
         } else {

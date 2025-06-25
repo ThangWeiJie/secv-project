@@ -8,8 +8,12 @@ if (!isset($_SESSION['USER']) || $_SESSION['ROLE'] !== 'space_manager') {
     exit();
 }
 
-// Fetch all rooms
-$result = $conn->query("SELECT * FROM room");
+if (isset($_GET['search']) && $_GET['search'] !== '') {
+    $search = $conn->real_escape_string($_GET['search']);
+    $result = $conn->query("SELECT * FROM room WHERE room_name LIKE '%$search%'");
+} else {
+    $result = $conn->query("SELECT * FROM room");
+}
 $message = "Are you sure you want to delete this room?";
 ?>
 <!DOCTYPE html>
@@ -40,6 +44,45 @@ $message = "Are you sure you want to delete this room?";
             color: #1e3a8a;
             text-align: center;
         }
+        .search-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        .search-form button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            background: #1e3a8a;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 5px;
+            transition: background 0.2s;
+        }
+
+        .search-form button:hover {
+            background: #2563eb;
+        }
+
+        .search-form a {
+            margin-left: 10px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .search-form a:hover {
+            text-decoration: underline;
+        }
+
         .add-room-btn {
             display: inline-block;
             margin: 20px 0 0 0;
@@ -113,6 +156,13 @@ $message = "Are you sure you want to delete this room?";
     <h2>Room Management</h2>
     <div class="center">
         <a href='add_room.php' class='add-room-btn'>Add New Room</a>
+        <form method="get" class="search-form">
+            <input type="text" name="search" placeholder="Search room name..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+            <button type="submit">Search</button>
+            <?php if (isset($_GET['search']) && $_GET['search'] !== ''): ?>
+                <a href="manage_room.php">Clear</a>
+            <?php endif; ?>
+        </form>
     </div>
     <?php if ($result->num_rows > 0): ?>
         <table>
