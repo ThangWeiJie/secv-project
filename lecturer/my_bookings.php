@@ -3,7 +3,7 @@
     require_once('../config.php');
 
     $lectureID = $_SESSION["USERID"];
-    $query = "SELECT * FROM booking WHERE booking_status='pending' AND lecturer_id = $lectureID";
+    $query = "SELECT * FROM booking WHERE lecturer_id = $lectureID";
     $result = mysqli_query($conn, $query);
 
     // while($row = mysqli_fetch_assoc($result)) {
@@ -129,7 +129,7 @@
         $currentTimestamp = time();
 
         $actionButtons = "";
-        if ($currentTimestamp < $bookingStartTimestamp) {
+        if (($currentTimestamp < $bookingStartTimestamp) && $row["booking_status"] == "pending") {
           $actionButtons = sprintf('
             <form method="post" action="modifybooking.php">
             <input type="submit" class="btn edit-btn" name="btn-edit" value="Edit">
