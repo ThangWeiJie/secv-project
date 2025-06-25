@@ -147,24 +147,27 @@
 
       <script>
           const searchParams = new URLSearchParams(window.location.search);
-          const bookingID = searchParams.get('bookId');
           const previousRoomID = searchParams.get('roomId');
-          const previousDate = searchParams.get('date');
-          const previousStartTime = searchParams.get('startTime').substring(0, 5);
-          const previousEndTime = searchParams.get('endTime').substring(0, 5);
-          const purpose = searchParams.get('purpose');
           const editFlag = searchParams.get('edit');
 
-          console.log(bookingID);
-          console.log(previousRoomID);
-          console.log(editFlag);
-          console.log(previousDate);
+          // console.log(bookingID);
+          // console.log(previousRoomID);
+          // console.log(editFlag);
+          // console.log(previousDate);
 
           if(previousRoomID) {
             document.getElementById('room').value = previousRoomID;
           }
 
           if(editFlag) {
+            const bookingID = searchParams.get('bookId');
+            const previousDate = searchParams.get('date');
+            const previousStartTime = searchParams.get('startTime').substring(0, 5);
+            const previousEndTime = searchParams.get('endTime').substring(0, 5);
+            const purpose = searchParams.get('purpose');
+            const editFlag = searchParams.get('edit');
+
+            
             document.getElementById('bookingForm').action = 'modifybooking.php';
             document.getElementById('book_id').value = bookingID;
             document.getElementById('room').value = previousRoomID;

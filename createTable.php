@@ -29,20 +29,6 @@ if(mysqli_query($conn, $sql)) {
     echo "Error creating table: " . mysqli_error($conn);
 }
 
-$sql = "CREATE TABLE IF NOT EXISTS room_equipment (
-    equipment_id INT AUTO_INCREMENT PRIMARY KEY,
-    room_id INT,
-    equipment_name VARCHAR(50),
-    quantity INT,
-    equipment_condition BOOLEAN,
-    FOREIGN KEY (room_id) REFERENCES room(room_id) ON DELETE CASCADE
-)";
-if(mysqli_query($conn, $sql)) {
-    echo "Table room_equipment created successfully.";
-} else {
-    echo "Error creating table: " . mysqli_error($conn);
-}
-
 $sql = "CREATE TABLE IF NOT EXISTS booking (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     room_id INT,

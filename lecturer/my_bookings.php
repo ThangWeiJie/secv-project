@@ -3,7 +3,7 @@
     require_once('../config.php');
 
     $lectureID = $_SESSION["USERID"];
-    $query = "SELECT * FROM booking WHERE booking_status='pending' AND lecturer_id = $lectureID";
+    $query = "SELECT * FROM booking WHERE lecturer_id = $lectureID";
     $result = mysqli_query($conn, $query);
 
     // while($row = mysqli_fetch_assoc($result)) {
@@ -108,7 +108,7 @@
 </head>
 <body>
 
-<h1>Pending Booking Approvals</h1>
+<h1>Your Booking Approvals</h1>
 
 <table id="bookingTable">
   <tr>
@@ -118,6 +118,7 @@
     <th>Date</th>
     <th>Time</th>
     <th>Purpose</th>
+    <th>Status</th>
     <th>Action</th>
   </tr>
   <?php
@@ -128,7 +129,7 @@
         $currentTimestamp = time();
 
         $actionButtons = "";
-        if ($currentTimestamp < $bookingStartTimestamp) {
+        if (($currentTimestamp < $bookingStartTimestamp) && $row["booking_status"] == "pending") {
           $actionButtons = sprintf('
             <form method="post" action="modifybooking.php">
             <input type="submit" class="btn edit-btn" name="btn-edit" value="Edit">
@@ -147,6 +148,7 @@
         <td>%s - %s</td>
         <td>%s</td>
         <td>%s</td>
+        <td>%s</td>
       </tr>
     ',
     $row['booking_id'],
@@ -156,6 +158,7 @@
     $row["start_time"],
     $row["end_time"],
     $row["purpose"],
+    $row["booking_status"],
     $actionButtons
     );
   }

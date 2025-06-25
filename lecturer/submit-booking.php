@@ -2,7 +2,7 @@
     session_start();
     require_once("../config.php");
 
-    print_r($_POST);
+    // print_r($_POST);
     
     if(isset($_POST['submit'])) {
         $room = trim($_POST['room']);
@@ -20,9 +20,11 @@
 
         if($stmt->affected_rows > 0) {
             echo '
-                <div>
-                    Your booking has been added.
+                <div style="text-align: center; margin-top: 50px; font-family: Segoe UI;">
+                    <h2 style="color: green;">✅ Your booking has been added successfully!</h2>
+                    <a href="../Homepage.php" style="display: inline-block; margin-top: 20px; padding: 12px 24px; background-color: #1d4ed8; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">Return to Homepage</a>
                 </div>
+
             ';
         }
 

@@ -190,7 +190,7 @@
         <p><strong>Size:</strong> ${room.size} pax</p>
         <p><strong>Availability:</strong> ${room.availability}</p>
         <button class="btn details" onclick="showDetails(${room.room_id})">View Details</button>
-        <a href="booking.html?roomId=${room.room_id}" class="btn book">Book</a>
+        <a href="lecturer/booking.php?roomId=${room.room_id}" class="btn book">Book</a>
       `;
       container.appendChild(card);
     });
