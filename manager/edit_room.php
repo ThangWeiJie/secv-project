@@ -35,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updateStmt->bind_param("ssisi", $room_name, $type, $size, $availability, $room_id);
 
     if ($updateStmt->execute()) {
-        echo "<p>Room updated successfully!</p>";
-        echo "<a href='manage_room.php'>← Back to Room List</a>";
+        echo "<p style='color: green; font-weight: bold;'>✅ Room updated successfully!</p>";
+        echo "<a href='manage_room.php' class='back-link'>← Back to Room List</a>";
     } else {
-        echo "<p style='color:red;'>Error: " . $updateStmt->error . "</p>";
+        echo "<p style='color:red;'>❌ Error: " . $updateStmt->error . "</p>";
     }
 
     $updateStmt->close();
@@ -52,18 +52,105 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h2>Edit Room</h2>
-<form method="post">
-    Room Name: <input type="text" name="room_name" value="<?= htmlspecialchars($room['room_name']) ?>" required><br>
-    Type: <input type="text" name="type" value="<?= htmlspecialchars($room['type']) ?>" required><br>
-    Size: <input type="number" name="size" value="<?= $room['size'] ?>" required><br>
-    <!-- Availability: <input type="number" name="size" value="<?= $room['size'] ?>" required><br> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Room</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    <label for="availability">Availability:</label>
-    <select id="availability" name="availability">
-        <option value="Unavailable">Unavailable</option>
-        <option value="Available">Available</option>
-    </select> <br>
+        .form-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
 
-    <button type="submit">Update Room</button>
-</form>
+        h2 {
+            text-align: center;
+            color: #1e40af;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #1e40af;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #1e40af;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Edit Room</h2>
+    <form method="post">
+        <label>Room Name:</label>
+        <input type="text" name="room_name" value="<?= htmlspecialchars($room['room_name']) ?>" required>
+
+        <label>Type:</label>
+        <input type="text" name="type" value="<?= htmlspecialchars($room['type']) ?>" required>
+
+        <label>Size:</label>
+        <input type="number" name="size" value="<?= $room['size'] ?>" required>
+
+        <label>Availability:</label>
+        <select name="availability" required>
+            <option value="Available" <?= $room['availability'] == 'Available' ? 'selected' : '' ?>>Available</option>
+            <option value="Unavailable" <?= $room['availability'] == 'Unavailable' ? 'selected' : '' ?>>Unavailable</option>
+        </select>
+
+        <button type="submit">Update Room</button>
+    </form>
+    <a href="manage_room.php" class="back-link">&#8592; Back to Room List</a>
+</div>
+
+</body>
+</html>
