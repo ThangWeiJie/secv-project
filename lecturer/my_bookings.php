@@ -108,7 +108,7 @@
 </head>
 <body>
 
-<h1>Pending Booking Approvals</h1>
+<h1>Your Booking Approvals</h1>
 
 <table id="bookingTable">
   <tr>
@@ -118,6 +118,7 @@
     <th>Date</th>
     <th>Time</th>
     <th>Purpose</th>
+    <th>Status</th>
     <th>Action</th>
   </tr>
   <?php
@@ -147,6 +148,7 @@
         <td>%s - %s</td>
         <td>%s</td>
         <td>%s</td>
+        <td>%s</td>
       </tr>
     ',
     $row['booking_id'],
@@ -156,6 +158,7 @@
     $row["start_time"],
     $row["end_time"],
     $row["purpose"],
+    $row["booking_status"],
     $actionButtons
     );
   }
