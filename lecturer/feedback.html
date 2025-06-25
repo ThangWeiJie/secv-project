@@ -64,25 +64,46 @@
     }
 
     .return-home-btn {
-            position: fixed;
-            right: 30px;
-            bottom: 30px;
-            background: #1e3a8a;
-            color: #fff;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: background 0.2s;
-            text-align: center;
-            z-index: 100;
-        }
-        .return-home-btn:hover {
-            background: #2563eb;
-        }
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      background: #1e3a8a;
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: background 0.2s;
+      text-align: center;
+      z-index: 100;
+    }
+    .return-home-btn:hover {
+      background: #2563eb;
+    }
+
+    .submit-btn {
+      background-color: #2563eb;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .submit-btn:hover {
+      background-color: #1e40af;
+      transform: scale(1.02);
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
   </style>
 </head>
 <body>
@@ -134,7 +155,7 @@
       </div>
 
       <div class="form-group">
-        <input type="submit" name="submit" value="Submit Feedback">
+        <input type="submit" name="submit" class="submit-btn" value="Submit Feedback">
       </div>
     </form>
   </div>
