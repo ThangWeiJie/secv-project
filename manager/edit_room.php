@@ -25,6 +25,8 @@ if (!$room) {
     exit();
 }
 
+$message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $room_name = $_POST['room_name'];
     $type = $_POST['type'];
@@ -35,10 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updateStmt->bind_param("ssisi", $room_name, $type, $size, $availability, $room_id);
 
     if ($updateStmt->execute()) {
-        echo "<p style='color: green; font-weight: bold;'>✅ Room updated successfully!</p>";
-        echo "<a href='manage_room.php' class='back-link'>← Back to Room List</a>";
+        $message = "<p style='color: green; font-weight: bold;'>✅ Room updated successfully!</p>";
     } else {
-        echo "<p style='color:red;'>❌ Error: " . $updateStmt->error . "</p>";
+        $message = "<p style='color:red;'>❌ Error: " . $updateStmt->error . "</p>";
     }
 
     $updateStmt->close();
@@ -125,12 +126,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .back-link:hover {
             text-decoration: underline;
         }
+
+        .message {
+            text-align: center;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
 
 <div class="form-container">
     <h2>Edit Room</h2>
+
+    <?php if (!empty($message)) : ?>
+        <div class="message"><?= $message ?></div>
+    <?php endif; ?>
+
     <form method="post">
         <label>Room Name:</label>
         <input type="text" name="room_name" value="<?= htmlspecialchars($room['room_name']) ?>" required>

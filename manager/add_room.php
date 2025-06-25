@@ -7,6 +7,7 @@ if (!isset($_SESSION['USERID']) || $_SESSION['ROLE'] !== 'space_manager') {
     exit();
 }
 
+$message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $room_name = $_POST['room_name'];
     $type = $_POST['type'];
@@ -16,10 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssi", $room_name, $type, $size);
 
     if ($stmt->execute()) {
-        echo "<p style='color: green; font-weight: bold;'>✅ Room added successfully!</p>";
-        echo "<a href='manage_room.php' class='back-link'>← Back to Room List</a>";
+        $message = "<p style='color: green; font-weight: bold;'>✅ Room added successfully!</p>";
     } else {
-        echo "<p style='color:red;'>❌ Error: " . $stmt->error . "</p>";
+        $message = "<p style='color:red;'>❌ Error: " . $stmt->error . "</p>";
     }
 
     $activityMessage = "Room added";
@@ -106,12 +106,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .back-link:hover {
             text-decoration: underline;
         }
+
+        .message {
+            text-align: center;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
 
 <div class="form-container">
     <h2>Add New Room</h2>
+    <?php if (!empty($message)) : ?>
+        <div class="message"><?= $message ?></div>
+    <?php endif; ?>
     <form method="post">
         <label>Room Name:</label>
         <input type="text" name="room_name" required>
