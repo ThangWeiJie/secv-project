@@ -128,7 +128,7 @@
             <td>%s - %s</td>
             <td>%s</td>
             <td>
-              <form method="post" action="approvalscopy.php">
+              <form method="post" action="approvals.php">
                 <input type="submit" class="btn approve-btn" name="btn-approve" value="Approve">
                 <input type="submit" class="btn reject-btn" name="btn-reject" value="Reject">
 								<input type="hidden" name="book_id" value="%u">
@@ -146,7 +146,7 @@
 			$approveResult = mysqli_query($conn, $approveQuery);
 		
 			if(mysqli_affected_rows($conn) > 0) {
-				header("Location: approvalscopy.php");
+				header("Location: approvals.php");
 		}
 	} else if(isset($_POST["btn-reject"])) {
 			$idToReject = $_POST['book_id'];
@@ -154,7 +154,7 @@
 			$rejectResult = mysqli_query($conn, $rejectQuery);
 
 			if(mysqli_affected_rows($conn) > 0) {
-				header("Location: approvalscopy.php");
+				header("Location: approvals.php");
 		}
 	}
   ?>
