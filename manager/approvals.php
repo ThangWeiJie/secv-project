@@ -9,15 +9,13 @@
   }
 
   $query = "SELECT * FROM booking WHERE booking_status='pending'";
+
+  $query = "SELECT booking.*, usertable.full_name, room.room_name 
+          FROM booking 
+          INNER JOIN usertable ON booking.lecturer_id = usertable.user_id 
+          INNER JOIN room ON booking.room_id = room.room_id 
+          WHERE booking.booking_status = 'pending'";
   $result = mysqli_query($conn, $query);
-
-  $joinquery_lecturer = "SELECT full_name FROM booking INNER JOIN usertable ON booking.lecturer_id=usertable.user_id";
-  $joinresult_lecturer = mysqli_query($conn, $joinquery_lecturer);
-  $fullname = mysqli_fetch_assoc($joinresult_lecturer);
-
-  $joinquery_room = "SELECT room_name FROM booking INNER JOIN room ON booking.room_id=room.room_id";
-  $joinresult_room = mysqli_query($conn, $joinquery_room);
-  $roomname = mysqli_fetch_assoc($joinresult_room);
 
   $currentTimestamp = time();
 
@@ -41,7 +39,6 @@
       }
     }
 
-  
     foreach ($roomStatus as $roomId => $status) {
     mysqli_query($conn, "UPDATE room SET availability='$status' WHERE room_id=$roomId");
   }
@@ -192,11 +189,19 @@
               <form method="post" action="approvals.php">
                 <input type="submit" class="btn approve-btn" name="btn-approve" value="Approve">
                 <input type="submit" class="btn reject-btn" name="btn-reject" value="Reject">
-								<input type="hidden" name="book_id" value="%u">
+                <input type="hidden" name="book_id" value="%u">
               </form>
             </td>
           </tr>
-        ', $row['booking_id'], $roomname["room_name"], $fullname["full_name"], $row["start_date"], $row["start_time"], $row["end_time"], $row["purpose"], $row["booking_id"]);
+        ',
+        $row['booking_id'],
+        $row['room_name'],
+        $row['full_name'],
+        $row['start_date'],
+        $row['start_time'],
+        $row['end_time'],
+        $row['purpose'],
+        $row['booking_id']);
       }
     }
 
